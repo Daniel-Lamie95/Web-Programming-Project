@@ -15,6 +15,22 @@
 	line-height: 1;
 }
 
+.navbar-links {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.nav-link-custom {
+	color: #fff;
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.nav-link-custom:hover {
+	color: #ffe0d1;
+}
+
 .profile-page {
 	min-height: calc(100vh - 56px);
 	background: linear-gradient(180deg, #fff2ed 0%, #ffffff 100%);
@@ -103,6 +119,60 @@
 	color: #5a6a83;
 }
 
+.home-content {
+	min-height: calc(100vh - 56px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem 1rem;
+	background: linear-gradient(180deg, #fff2ed 0%, #ffffff 100%);
+}
+
+#carouselExample {
+	width: min(520px, 90vw);
+	margin: 0 auto;
+	border-radius: 16px;
+	overflow: hidden;
+	box-shadow: 0 10px 30px rgba(26, 38, 64, 0.15);
+}
+
+#carouselExample .carousel-item img {
+	width: 100%;
+	height: auto;
+	object-fit: contain;
+}
+
+.apply-btn {
+	background-color: #2e7d32;
+	border-color: #2e7d32;
+	color: #fff;
+	margin-top: 10px;
+	font-weight: 600;
+}
+
+.apply-btn:hover,
+.apply-btn:focus {
+	background-color: #1b5e20;
+	border-color: #1b5e20;
+	color: #fff;
+}
+
+.apply-btn.applied,
+.apply-btn.applied:hover,
+.apply-btn.applied:focus,
+.apply-btn:disabled {
+	background-color: #6c757d;
+	border-color: #6c757d;
+	color: #fff;
+	opacity: 1;
+	cursor: not-allowed;
+}
+
+.apply-btn.applied::after {
+	content: " \2713";
+	font-weight: 700;
+}
+
 @media (max-width: 576px) {
 	.profile-card {
 		padding: 1rem;
@@ -111,4 +181,12 @@
 	.page-title {
 		font-size: 1.6rem;
 	}
+
+	#carouselExample {
+		width: 94vw;
+	}
 }
+
+
+
+
