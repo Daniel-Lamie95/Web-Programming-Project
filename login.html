@@ -1,0 +1,48 @@
+<!DOCTYPE >
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+
+    <div>
+
+    <center> 
+        <h1>Login</h1>
+        <p>Please enter your information</p>
+
+       
+        <form action="login" method="post">
+
+            
+            <label for="name">Name:</label><br/>
+            <input type="text" id="name" name="name" required><br/>
+
+            <label for="email">Email:</label><br/>
+            <input type="email" id="email" name="email" required><br/>
+
+            <label for="password">Password:</label><br/>
+            <input type="password" id="password" name="password" required><br/>
+
+           
+            <p>Select Role:</p>
+
+            <input type="radio" id="student" name="role" value="student" required>
+            <label for="student">Student</label>
+
+            <input type="radio" id="company" name="role" value="company">
+            <label for="company">Company</label>
+
+            <input type="radio" id="admin" name="role" value="admin">
+            <label for="admin">Admin</label><br/>
+
+            <input type="submit" value="Login">
+
+        </form>
+</center>
+    </div>
+
+</body>
+</html>

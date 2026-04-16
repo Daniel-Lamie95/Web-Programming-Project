@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Company Profile</title>
+</head>
+<body>
+
+    <div>
+
+        <h1>Edit Company Profile</h1>
+        <p>Update your company information</p>
+
+        <form action="updateCompanyProfile" method="post">
+
+            <label for="companyName">Company Name:</label><br>
+            <input type="text" id="companyName" name="companyName" value="Company Name" required><br><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" value="company@example.com" required><br><br>
+
+            <label for="industry">Industry / Field:</label><br>
+            <input type="text" id="industry" name="industry" value="Software Development" required><br><br>
+
+            <label for="location">Location:</label><br>
+            <input type="text" id="location" name="location" value="Cairo, Egypt" required><br><br>
+
+            <label for="website">Website:</label><br>
+            <input type="url" id="website" name="website" value="www.company.com"><br><br>
+
+            <label for="phone">Phone Number:</label><br>
+            <input type="tel" id="phone" name="phone" value="01012345678" required><br><br>
+
+            <label for="description">Company Description:</label><br>
+            <textarea id="description" name="description" rows="5" cols="40" required>We are a company specialized in software solutions and providing internship opportunities for students.</textarea><br><br>
+
+            <input type="submit" value="Save Changes">
+            <button type="button" onclick="location.href='company-profile.html'">Cancel</button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
