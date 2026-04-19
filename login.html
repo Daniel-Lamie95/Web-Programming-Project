@@ -1,48 +1,48 @@
-<!DOCTYPE >
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Launchpath - Login</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="auth-page">
 
-    <div>
+    <nav class="navbar">
+        <div class="company-dashboard-logo">🚀 Launchpath</div>
 
-    <center> 
-        <h1>Login</h1>
-        <p>Please enter your information</p>
+        <ul class="nav-links">
+            <li><a href="homepage.html">Home</a></li> 
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
 
-       
-        <form action="login" method="post">
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Internship <span class="highlight">Launchpath</span></h1>
+            <p>
+              "Where your career takes off."
+            </p>
+            <a href="signup.html" class="main-btn">Create Account</a>
+        </div>
 
-            
-            <label for="name">Name:</label><br/>
-            <input type="text" id="name" name="name" required><br/>
+        <div class="form-box">
+            <h2>Login</h2>
 
-            <label for="email">Email:</label><br/>
-            <input type="email" id="email" name="email" required><br/>
+            <form action="login" method="post">
+                <input type="text" name="name" placeholder="Enter Name" required>
+                <input type="password" name="password" placeholder="Enter Password" required>
 
-            <label for="password">Password:</label><br/>
-            <input type="password" id="password" name="password" required><br/>
+                <button type="submit" class="form-btn">Login</button>
+            </form>
 
-           
-            <p>Select Role:</p>
-
-            <input type="radio" id="student" name="role" value="student" required>
-            <label for="student">Student</label>
-
-            <input type="radio" id="company" name="role" value="company">
-            <label for="company">Company</label>
-
-            <input type="radio" id="admin" name="role" value="admin">
-            <label for="admin">Admin</label><br/>
-
-            <input type="submit" value="Login">
-
-        </form>
-</center>
-    </div>
+            <p class="switch-text">
+                Don’t have an account?
+                <a href="signup.html">Sign Up</a>
+            </p>
+        </div>
+    </section>
 
 </body>
 </html>

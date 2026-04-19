@@ -1,72 +1,138 @@
-<!DOCTYPE >
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Dashboard</title>
+    <title>Company Dashboard - Launchpath</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="company-dashboard-page">
 
-    <div>
+    <nav class="company-dashboard-navbar">
+        <div class="company-dashboard-logo">🚀 Launchpath</div>
 
-        <h1>Company Dashboard</h1>
-        <p>Welcome to your company dashboard</p>
+        <ul class="company-dashboard-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="company-profile.html">Profile</a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </nav>
 
-        <!-- Company Info -->
-        <div>
-            <img src="company-logo.png" alt="Company Logo" width="120" height="120">
-            <h2>Company Name</h2>
-        </div>
+    <main class="company-dashboard-container">
 
-        <hr>
+        <section class="company-dashboard-hero">
+            <div>
+                <h1>Company Dashboard</h1>
+                <p>Manage your company profile, internships, and applicants in one place.</p>
+            </div>
+        </section>
 
-        <!-- Profile Section -->
-        <div>
-            <h3>Profile</h3>
-            <button onclick="location.href='company-profile.html'">
-                View Profile
-            </button>
-        </div>
+        <section class="company-dashboard-top">
+            <div class="company-dashboard-profile-card">
+                <div class="company-dashboard-avatar">
+                    <img src="images/main_logo.jpeg" alt="Company Logo">
+                </div>
+                <h3>Tech Company</h3>
+                <span>Software Development</span>
+            </div>
 
-        <br>
-        <hr>
+            <div class="company-dashboard-info-card">
+                <h2>Company Information</h2>
 
-        <!-- Internship Section -->
-        <div>
-            <h3>Internship Management</h3>
+                <div class="dashboard-info-row">
+                    <span class="dashboard-label">Company Name</span>
+                    <span class="dashboard-value">Tech Company</span>
+                </div>
 
-            <button onclick="location.href='post-internship.html'">
-                Post Internship
-            </button>
+                <div class="dashboard-info-row">
+                    <span class="dashboard-label">Field</span>
+                    <span class="dashboard-value">Software Development</span>
+                </div>
 
-            <button onclick="location.href='manage-internships.html'">
-                Manage Internships
-            </button>
-        </div>
+                <div class="dashboard-info-row">
+                    <span class="dashboard-label">Email</span>
+                    <span class="dashboard-value">company@email.com</span>
+                </div>
 
-        <br>
-        <hr>
+                <div class="dashboard-info-row">
+                    <span class="dashboard-label">Location</span>
+                    <span class="dashboard-value">Cairo, Egypt</span>
+                </div>
 
-        <!-- Applicants Section -->
-        <div>
-            <h3>Applicants</h3>
+                <div class="dashboard-info-row">
+                    <span class="dashboard-label">Phone</span>
+                    <span class="dashboard-value">+20 123 456 789</span>
+                </div>
+            </div>
+        </section>
 
-            <button onclick="location.href='view-applicants.html'">
-                View Applicants
-            </button>
-        </div>
+        <section class="company-dashboard-stats">
+            <div class="dashboard-stat-card">
+                <h3>12</h3>
+                <p>Posted Internships</p>
+            </div>
 
-        <br>
-        <hr>
+            <div class="dashboard-stat-card">
+                <h3>48</h3>
+                <p>Applicants</p>
+            </div>
 
-        <!-- Logout -->
-        <div>
-            <button onclick="location.href='login.html'">
-                Logout
-            </button>
-        </div>
+            <div class="dashboard-stat-card">
+                <h3>6</h3>
+                <p>Active Internships</p>
+            </div>
 
-    </div>
+        
+        </section>
+
+        <section class="company-dashboard-actions">
+            <h2>Quick Actions</h2>
+
+            <div class="company-dashboard-actions-grid">
+                
+
+                <a href="post-internship.html" class="dashboard-action-card">
+                    <h3>Post Internship</h3>
+                    <p>Add a new internship opportunity</p>
+                </a>
+
+                <a href="manage-internships.html" class="dashboard-action-card">
+                    <h3>Manage Internships</h3>
+                    <p>View and edit posted internships</p>
+                </a>
+
+                <a href="view-applicants.html" class="dashboard-action-card">
+                    <h3>View Applicants</h3>
+                    <p>Check students applications</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="company-dashboard-internships">
+            <h2>Recent Internships</h2>
+
+            <div class="company-dashboard-internships-grid">
+                <div class="dashboard-internship-card">
+                    <h3>Frontend Internship</h3>
+                    <p>Web Development</p>
+                    <span>June 2026 - August 2026</span>
+                </div>
+
+                <div class="dashboard-internship-card">
+                    <h3>Backend Internship</h3>
+                    <p>Software Engineering</p>
+                    <span>July 2026 - September 2026</span>
+                </div>
+
+                <div class="dashboard-internship-card">
+                    <h3>UI/UX Internship</h3>
+                    <p>Design</p>
+                    <span>August 2026 - October 2026</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
 </body>
 </html>

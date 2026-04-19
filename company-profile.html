@@ -1,52 +1,90 @@
 <!DOCTYPE html>
-<html >
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Profile</title>
+    <title>Company Profile - Launchpath</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="company-profile-page">
 
-    <div>
+    <nav class="company-profile-navbar">
+        <div class="company-profile-logo">🚀 Launchpath</div>
 
-        <h1>Company Profile</h1>
-        <p>Your company information</p>
+        <ul class="company-profile-links">
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="company-dashboard.html">Dashboard</a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </nav>
 
-        <!-- Company Info -->
-        <div>
-            <img src="company-logo.png" alt="Company Logo" width="120" height="120">
-            <h2>Company Name</h2>
-        </div>
+    <main class="company-profile-container">
 
-        <hr>
+        <section class="company-profile-hero">
+            <h1>Company Profile</h1>
+            <p>View your company details and manage your profile information.</p>
+        </section>
 
-        <!-- Company Details -->
-        <div>
-            <p><strong>Email:</strong> company@example.com</p>
-            <p><strong>Industry / Field:</strong> Software Development</p>
-            <p><strong>Location:</strong> Cairo, Egypt</p>
-            <p><strong>Website:</strong> www.company.com</p>
-            <p><strong>Phone Number:</strong> 01012345678</p>
+        <section class="company-profile-card">
 
-            <p><strong>Description:</strong><br>
-                We are a company specialized in software solutions and providing internship opportunities for students.
-            </p>
-        </div>
+            <div class="company-profile-left">
+                <div class="company-profile-image">
+                    <img src="images/main_logo.jpeg" alt="Company Logo">
+                </div>
+                <h2>Tech Company</h2>
+                <span>Software Development</span>
+            </div>
 
-        <hr>
+            <div class="company-profile-right">
+                <h2>Profile Information</h2>
 
-        <!-- Actions -->
-        <div>
-            <button onclick="location.href='edit-company-profile.html'">
-                Edit Profile
-            </button>
+                <div class="profile-row">
+                    <span class="profile-label">Company Name</span>
+                    <span class="profile-value">Tech Company</span>
+                </div>
 
-            <button onclick="location.href='company-dashboard.html'">
-                Back to Dashboard
-            </button>
-        </div>
+                <div class="profile-row">
+                    <span class="profile-label">Email</span>
+                    <span class="profile-value">company@email.com</span>
+                </div>
 
-    </div>
+                <div class="profile-row">
+                    <span class="profile-label">Phone Number</span>
+                    <span class="profile-value">+20 123 456 789</span>
+                </div>
+
+                <div class="profile-row">
+                    <span class="profile-label">Location</span>
+                    <span class="profile-value">Cairo, Egypt</span>
+                </div>
+
+                <div class="profile-row">
+                    <span class="profile-label">Field / Industry</span>
+                    <span class="profile-value">Software Development</span>
+                </div>
+
+                <div class="profile-row">
+                    <span class="profile-label">Website</span>
+                    <span class="profile-value">www.techcompany.com</span>
+                </div>
+
+                <div class="profile-row description-row">
+                    <span class="profile-label">Description</span>
+                    <span class="profile-value">
+                        Tech Company provides internship opportunities for students in web development,
+                        software engineering, and UI/UX design.
+                    </span>
+                </div>
+
+                <div class="company-profile-buttons">
+                    <a href="edit-company-profile.html" class="profile-btn">Edit Profile</a>
+                    <a href="company-dashboard.html" class="profile-btn">Back to Dashboard</a>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
 
 </body>
 </html>

@@ -1,37 +1,48 @@
 <!DOCTYPE html>
-<html >
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Registration</title>
+    <title>Company Register - Launchpath</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="auth-page">
 
-    <div>
-        <h1>Complete Company Registration</h1>
-        <p>Please enter your company details</p>
+    <nav class="navbar">
+        <div class="logo">🚀 Launchpath</div>
 
-        <form action="companyRegister" method="post">
+        <ul class="nav-links">
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
 
-            <label for="industry">Industry / Field:</label><br>
-            <input type="text" id="industry" name="industry" required><br><br>
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Complete Your <span class="highlight">Company Profile</span></h1>
+            <p>
+                Add your company details to start posting internships and connect with students.
+            </p>
+        </div>
 
-            <label for="location">Location:</label><br>
-            <input type="text" id="location" name="location" required><br><br>
+        <div class="form-box company-form-box">
+            <h2>Company Register</h2>
 
-            <label for="website">Website:</label><br>
-            <input type="url" id="website" name="website"><br><br>
+            <form action="company-register" method="post" enctype="multipart/form-data">
+                <input type="text" name="field" placeholder="Field / Industry" required>
+                 <input type="text" name="location" placeholder="Location" required>
+                <input type="text" name="phone" placeholder="Phone Number" required>
+                <textarea name="description" placeholder="Company Description" rows="4" required></textarea>
+                <input type="url" name="website" placeholder="Company Website">
+                <br/>
+                <label class="file-label">Upload Company Logo</label>
+                <input type="file" name="logo" accept="image/*">
 
-            <label for="phone">Phone Number:</label><br>
-            <input type="tel" id="phone" name="phone" required><br><br>
-
-            <label for="description">Company Description:</label><br>
-            <textarea id="description" name="description" rows="5" cols="30" required></textarea><br><br>
-
-            <input type="submit" value="Save Registration">
-
-        </form>
-    </div>
+                <button type="submit" class="form-btn">Complete Registration</button>
+            </form>
+        </div>
+    </section>
 
 </body>
 </html>
