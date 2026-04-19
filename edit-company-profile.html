@@ -1,46 +1,95 @@
 <!DOCTYPE html>
-<html >
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Company Profile</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="company-profile-page">
 
-    <div>
+    <nav class="company-profile-navbar">
+        <div class="company-profile-logo">🚀 Launchpad</div>
 
-        <h1>Edit Company Profile</h1>
-        <p>Update your company information</p>
+        <ul class="company-profile-links">
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="company-dashboard.html">Dashboard</a></li>
+            <li><a href="company-profile.html">Profile</a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </nav>
 
-        <form action="updateCompanyProfile" method="post">
+    <main class="company-profile-container">
 
-            <label for="companyName">Company Name:</label><br>
-            <input type="text" id="companyName" name="companyName" value="Company Name" required><br><br>
+        <section class="company-profile-hero">
+            <h1>Edit Company Profile</h1>
+            <p>Update your company information.</p>
+        </section>
 
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" value="company@example.com" required><br><br>
+        <section class="company-profile-card">
 
-            <label for="industry">Industry / Field:</label><br>
-            <input type="text" id="industry" name="industry" value="Software Development" required><br><br>
+            <div class="company-profile-left">
+                <div class="company-profile-image">
+                    <img src="images/main_logo.jpeg" alt="Company Logo">
+                </div>
+                <h2>Tech Company</h2>
+                <span>Software Development</span>
+            </div>
 
-            <label for="location">Location:</label><br>
-            <input type="text" id="location" name="location" value="Cairo, Egypt" required><br><br>
+            <div class="company-profile-right">
+                <h2>Edit Information</h2>
 
-            <label for="website">Website:</label><br>
-            <input type="url" id="website" name="website" value="www.company.com"><br><br>
+                <form>
+                    <div class="profile-row">
+                        <label class="profile-label" for="companyName">Company Name</label>
+                        <input type="text" id="companyName" name="companyName" value="Tech Company">
+                    </div>
 
-            <label for="phone">Phone Number:</label><br>
-            <input type="tel" id="phone" name="phone" value="01012345678" required><br><br>
+                    <div class="profile-row">
+                        <label class="profile-label" for="companyEmail">Email</label>
+                        <input type="email" id="companyEmail" name="companyEmail" value="company@email.com">
+                    </div>
 
-            <label for="description">Company Description:</label><br>
-            <textarea id="description" name="description" rows="5" cols="40" required>We are a company specialized in software solutions and providing internship opportunities for students.</textarea><br><br>
+                    <div class="profile-row">
+                        <label class="profile-label" for="phone">Phone Number</label>
+                        <input type="text" id="phone" name="phone" value="+20 123 456 789">
+                    </div>
 
-            <input type="submit" value="Save Changes">
-            <button type="button" onclick="location.href='company-profile.html'">Cancel</button>
+                    <div class="profile-row">
+                        <label class="profile-label" for="location">Location</label>
+                        <input type="text" id="location" name="location" value="Cairo, Egypt">
+                    </div>
 
-        </form>
+                    <div class="profile-row">
+                        <label class="profile-label" for="field">Field / Industry</label>
+                        <input type="text" id="field" name="field" value="Software Development">
+                    </div>
 
-    </div>
+                    <div class="profile-row">
+                        <label class="profile-label" for="website">Website</label>
+                        <input type="url" id="website" name="website" value="https://www.techcompany.com">
+                    </div>
+
+                    <div class="profile-row description-row">
+                        <label class="profile-label" for="description">Description</label>
+                        <textarea id="description" name="description" rows="5">Tech Company provides internship opportunities for students in web development, software engineering, and UI/UX design.</textarea>
+                    </div>
+
+                    <div class="profile-row">
+                        <label class="profile-label" for="logo">Company Logo</label>
+                        <input type="file" id="logo" name="logo">
+                    </div>
+
+                    <div class="company-profile-buttons">
+                        <a href="company-profile.html" class="profile-btn">Cancel</a>
+                        <button type="submit" class="profile-btn">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </section>
+
+    </main>
 
 </body>
 </html>
