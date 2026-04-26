@@ -30,9 +30,23 @@
         <div class="form-box">
             <h2>Login</h2>
 
-            <form action="login" method="post">
+            <form action="login.php" method="post">
                 <input type="text" name="name" placeholder="Enter Name" required>
                 <input type="password" name="password" placeholder="Enter Password" required>
+
+                <div class="role-box">
+                    <p>Login as:</p>
+                    <div class="role-options">
+                        <label>
+                            <input type="radio" name="user_type" value="student" required>
+                            Student
+                        </label>
+                        <label>
+                            <input type="radio" name="user_type" value="company" required>
+                            Company
+                        </label>
+                    </div>
+                </div>
 
                 <button type="submit" class="form-btn">Login</button>
             </form>

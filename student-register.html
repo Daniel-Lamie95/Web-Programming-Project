@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Company Register - Launchpad</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
 </head>
 <body class="auth-page">
 
@@ -12,9 +13,9 @@
         <div class="logo">🚀 Launchpad</div>
 
         <ul class="nav-links">
-            <li><a href="student-home.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="/student-home" th:href="@{/student-home}">Home</a></li>
+            <li><a href="/about.html" th:href="@{/about.html}">About Us</a></li>
+            <li><a href="/contact.html" th:href="@{/contact.html}">Contact</a></li>
         </ul>
     </nav>
 
@@ -29,19 +30,15 @@
         <div class="form-box company-form-box">
             <h2>Student Register</h2>
 
-            <form action="student-register" method="post" enctype="multipart/form-data">
+            <form action="/register" th:action="@{/register}" method="post" enctype="multipart/form-data">
                 <input type="text" name="name" placeholder="Name" required>
                 <input type="text" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="text" name="university" placeholder="University" required>
                 <input type="text" name="major" placeholder="Major" required>
                 <label class="file-label">Date of Birth</label>
-                <input type="date" name="date-of-birth">
+                <input type="date" name="dateOfBirth">
                 <br><br>
-                <label class="file-label">Upload CV</label>
-                <input type="file" name="cv">
-                <label class="file-label">Upload profile image</label>
-                <input type="file" name="logo" accept="image/*">
                 <button type="submit" class="form-btn">Complete Registration</button>
             </form>
         </div>
