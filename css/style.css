@@ -309,8 +309,7 @@ body {
 
 .company-dashboard-page {
     min-height: 100vh;
-    background: linear-gradient(rgba(10,10,40,0.6), rgba(10,10,40,0.6));
-    color: #2b2b2b;
+    background: linear-gradient(135deg, #d3b7ab, #ddb09d);
     font-family: Arial, sans-serif;
 }
 
@@ -321,7 +320,10 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 22px 60px;
-    background: transparent;
+
+    background: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(6px);     
+
     position: absolute;
     top: 0;
     left: 0;
@@ -537,6 +539,8 @@ body {
 /* Internships */
 .company-dashboard-internships {
     padding: 24px 26px;
+    margin-top: 20px;
+
 }
 
 .company-dashboard-internships-grid {
@@ -551,6 +555,9 @@ body {
     border-radius: 15px;
     padding: 18px 16px;
     transition: 0.3s ease;
+       display: block;
+    text-decoration: none; /* removes underline */
+    color: inherit;        /* keeps your original colors */
 }
 
 .dashboard-internship-card:hover {
@@ -855,3 +862,70 @@ body {
         gap: 6px;
     }
 }}
+ <!-- SEARCH BAR---->
+.search-box {
+    width: 85%;
+    margin: 20px auto 30px auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    
+    transform: translateY(10px);
+
+}
+
+.search-box form {
+    display: flex;
+    background: white;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.search-box input {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.search-box button {
+    background: linear-gradient(90deg, #f34d00, #eb1202);
+    border: none;
+    color: white;
+    padding: 0 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    opacity: 0.9;
+}
+
+.search-section {
+    margin: 30px 0;
+}
+
+.dashboard-internships-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+
+    margin-bottom: 20px;
+}
+
+.dashboard-internship-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dashboard-internship-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+        0 10px 20px rgba(255, 136, 0, 0.438),
+        0 0 0 1px rgba(255, 90, 40, 0.774);
+}
+
+#uploadStatus {
+    margin-top: 10px;
+    font-size: 14px;
+    color: green;
+}

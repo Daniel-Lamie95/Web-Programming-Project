@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student Profile - Launchpad</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-page">
+
+    <nav class="navbar">
+        <div class="logo">🚀 Launchpad</div>
+
+        <ul class="nav-links">
+            <li><a href="student-home.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Edit Your <span class="highlight">Profile</span></h1>
+            <p>
+                Update your student information to keep your profile complete and up to date.
+            </p>
+        </div>
+
+        <div class="form-box company-form-box">
+            <h2>Edit Student Profile</h2>
+
+            <form action="updateStudentProfile" method="post" enctype="multipart/form-data">
+                <input type="text" name="name" placeholder="Name" value="Student Name" required>
+                <input type="text" name="email" placeholder="Email" value="Student@example.com" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="text" name="university" placeholder="University" value="AAST" required>
+                <input type="text" name="major" placeholder="Major" value="Computer Science" required>
+                <label class="file-label">Date of Birth</label>
+                <input type="date" name="date-of-birth">
+                <br><br>
+                <label class="file-label">Upload CV</label>
+                <input type="file" name="cv">
+                <label class="file-label">Upload profile image</label>
+                <input type="file" name="logo" accept="image/*">
+                <button type="submit" class="form-btn">Save Changes</button>
+                <br>
+                <br>
+                <button type="button" class="form-btn" onclick="location.href='student-profile.html'">Cancel</button>
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>
