@@ -104,7 +104,7 @@ body {
 .main-btn {
     display: inline-block;
     text-decoration: none;
-    background: linear-gradient(90deg, var(--rocket-red), var(--flame-yellow));
+    background: linear-gradient(90deg, var(--space-dark), var(--window-blue));
     color: var(--soft-white);
     padding: 14px 30px;
     border-radius: 10px;
@@ -187,7 +187,7 @@ body {
     font-weight: bold;
     color: var(--soft-white);
     cursor: pointer;
-    background: linear-gradient(90deg, var(--rocket-red), var( --flame-yellow));
+    background: linear-gradient(90deg, var(--space-dark), var(--window-blue));
     transition: 0.3s ease;
 }
 
@@ -361,7 +361,7 @@ body {
 
 /* Hero */
 .company-dashboard-hero {
-    background: linear-gradient(135deg, var(--rocket-red), var(--flame-yellow));
+    background: linear-gradient(135deg, var(--space-dark), var(--window-blue));
     color: white;
     border-radius: 22px;
     padding: 30px;
@@ -427,7 +427,7 @@ body {
 
 .company-dashboard-profile-card h3 {
     font-size: 22px;
-    color: var(--rocket-red);
+    color: var(--space-dark);
     margin-bottom: 6px;
 }
 
@@ -446,7 +446,7 @@ body {
 .company-dashboard-internships h2 {
     font-size: 24px;
     margin-bottom: 18px;
-    color: var(--flame-orange);
+    color: var(--space-dark);
 }
 
 .dashboard-info-row {
@@ -478,7 +478,7 @@ body {
 }
 
 .dashboard-stat-card {
-    background: linear-gradient(135deg, var(--rocket-red), var(--flame-orange));
+    background: linear-gradient(135deg, var(--space-dark), var(--window-blue));
     color: white;
     padding: 24px 18px;
     text-align: center;
@@ -519,11 +519,11 @@ body {
 
 .dashboard-action-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 18px var(--flame-orange);
+    box-shadow: 0 8px 18px var(--flame-yellow);
 }
 
 .dashboard-action-card h3 {
-    color: var(--rocket-red);
+    color: var(--space-dark);
     margin-bottom: 8px;
     font-size: 18px;
 }
@@ -559,7 +559,7 @@ body {
 }
 
 .dashboard-internship-card h3 {
-    color: var(--rocket-red);
+    color: var(--space-dark);
     margin-bottom: 8px;
     font-size: 18px;
 }
@@ -690,7 +690,7 @@ body {
 }
 
 .company-profile-hero {
-    background: linear-gradient(135deg, var(--rocket-red), var(--flame-yellow));
+    background: linear-gradient(135deg, var(--space-dark), var(--window-blue));
     color: white;
     border-radius: 22px;
     padding: 30px;
@@ -749,7 +749,7 @@ body {
 
 .company-profile-left h2 {
     font-size: 24px;
-    color: var(--rocket-red);
+    color: var(--space-dark);
     margin-bottom: 8px;
 }
 
@@ -761,7 +761,7 @@ body {
 
 .company-profile-right h2 {
     font-size: 26px;
-    color: var(--rocket-red);
+    color: var(--space-dark);
     margin-bottom: 18px;
 }
 
@@ -801,7 +801,7 @@ body {
 .profile-btn {
     display: inline-block;
     text-decoration: none;
-    background: linear-gradient(135deg, var(--rocket-red), var(--flame-orange));
+    background: linear-gradient(135deg, var(--space-dark), var(--window-blue));
     color: white;
     padding: 12px 22px;
     border-radius: 12px;
