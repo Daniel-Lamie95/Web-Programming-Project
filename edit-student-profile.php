@@ -26,9 +26,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $major = isset($_POST['major']) ? trim($_POST['major']) : '';
     $dateOfBirth = isset($_POST['dateOfBirth']) ? trim($_POST['dateOfBirth']) : '';
     $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+    $profilePhotoPath = null;
+    $photoUploaded = isset($_FILES['profile_photo']) && $_FILES['profile_photo']['error'] === UPLOAD_ERR_OK;
 
     if ($name === '' || $email === '' || $phonenum === '' || $university === '' || $major === '') {
         $errorMessage = 'Please fill in all required fields.';
+    } elseif ($photoUploaded) {
+        $uploadDirectory = __DIR__ . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR;
+        $originalFileName = basename($_FILES['profile_photo']['name']);
+        $fileExtension = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
+        $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif', 'webp');
+
+        if (!in_array($fileExtension, $allowedExtensions, true)) {
+            $errorMessage = 'Only JPG, PNG, GIF, and WEBP images are allowed.';
+        } else {
+            $newFileName = 'student_' . $studentId . '_' . uniqid() . '.' . $fileExtension;
+            $targetFilePath = $uploadDirectory . $newFileName;
+
+            if (!move_uploaded_file($_FILES['profile_photo']['tmp_name'], $targetFilePath)) {
+                $errorMessage = 'Unable to save the uploaded photo.';
+            } else {
+                $profilePhotoPath = 'img/' . $newFileName;
+
+                if ($password !== '') {
+                    $updateSql = 'UPDATE Student SET name = ?, email = ?, password = ?, phonenum = ?, university = ?, major = ?, dateOfBirth = ?, profile_photo_path = ? WHERE id = ? LIMIT 1';
+                    $updateStmt = mysqli_prepare($con, $updateSql);
+
+                    if ($updateStmt) {
+                        mysqli_stmt_bind_param($updateStmt, 'ssssssssi', $name, $email, $password, $phonenum, $university, $major, $dateOfBirth, $profilePhotoPath, $studentId);
+                        mysqli_stmt_execute($updateStmt);
+                        mysqli_stmt_close($updateStmt);
+
+                        $_SESSION['user_name'] = $name;
+                        mysqli_close($con);
+                        header('Location: student-profile.php?updated=1');
+                        exit();
+                    }
+                } else {
+                    $updateSql = 'UPDATE Student SET name = ?, email = ?, phonenum = ?, university = ?, major = ?, dateOfBirth = ?, profile_photo_path = ? WHERE id = ? LIMIT 1';
+                    $updateStmt = mysqli_prepare($con, $updateSql);
+
+                    if ($updateStmt) {
+                        mysqli_stmt_bind_param($updateStmt, 'sssssssi', $name, $email, $phonenum, $university, $major, $dateOfBirth, $profilePhotoPath, $studentId);
+                        mysqli_stmt_execute($updateStmt);
+                        mysqli_stmt_close($updateStmt);
+
+                        $_SESSION['user_name'] = $name;
+                        mysqli_close($con);
+                        header('Location: student-profile.php?updated=1');
+                        exit();
+                    }
+                }
+            }
+        }
     } else {
         if ($password !== '') {
             $updateSql = 'UPDATE Student SET name = ?, email = ?, password = ?, phonenum = ?, university = ?, major = ?, dateOfBirth = ? WHERE id = ? LIMIT 1';
@@ -66,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$sql = 'SELECT id, name, email, phonenum, university, major, dateOfBirth FROM Student WHERE id = ? LIMIT 1';
+$sql = 'SELECT id, name, email, phonenum, university, major, dateOfBirth, profile_photo_path FROM Student WHERE id = ? LIMIT 1';
 $stmt = mysqli_prepare($con, $sql);
 $student = null;
 
@@ -94,6 +144,7 @@ $studentPhone = isset($student['phonenum']) ? $student['phonenum'] : '';
 $studentUniversity = isset($student['university']) ? $student['university'] : '';
 $studentMajor = isset($student['major']) ? $student['major'] : '';
 $studentDob = isset($student['dateOfBirth']) ? $student['dateOfBirth'] : '';
+$studentPhotoPath = isset($student['profile_photo_path']) && $student['profile_photo_path'] !== '' ? $student['profile_photo_path'] : './images/Screenshot 2026-03-23 192924.png';
 
 mysqli_close($con);
 ?>
@@ -133,7 +184,10 @@ mysqli_close($con);
                 <p class="switch-text" style="color:#dc3545;"><?php echo htmlspecialchars($errorMessage); ?></p>
             <?php } ?>
 
-            <form action="edit-student-profile.php" method="post">
+            <form action="edit-student-profile.php" method="post" enctype="multipart/form-data">
+                <div class="company-profile-image" style="margin-bottom: 20px;">
+                    <img src="<?php echo htmlspecialchars($studentPhotoPath); ?>" alt="Student profile photo">
+                </div>
                 <input type="text" name="name" placeholder="Name" value="<?php echo htmlspecialchars($studentName); ?>" required>
                 <input type="email" name="email" placeholder="Email" value="<?php echo htmlspecialchars($studentEmail); ?>" required>
                 <input type="text" name="phonenum" placeholder="Phone Number" value="<?php echo htmlspecialchars($studentPhone); ?>" required>
@@ -142,6 +196,8 @@ mysqli_close($con);
                 <input type="text" name="major" placeholder="Major" value="<?php echo htmlspecialchars($studentMajor); ?>" required>
                 <label class="file-label">Date of Birth</label>
                 <input type="date" name="dateOfBirth" value="<?php echo htmlspecialchars($studentDob); ?>">
+                <label class="file-label">Change Profile Photo</label>
+                <input type="file" name="profile_photo" accept="image/*">
                 <br><br>
                 <button type="submit" class="form-btn">Save Changes</button>
                 <br>

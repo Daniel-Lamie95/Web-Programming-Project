@@ -17,7 +17,7 @@ if ($studentId <= 0) {
     exit();
 }
 
-$sql = 'SELECT id, name, email, phonenum, university, major, dateOfBirth FROM Student WHERE id = ? LIMIT 1';
+$sql = 'SELECT id, name, email, phonenum, university, major, dateOfBirth, profile_photo_path FROM Student WHERE id = ? LIMIT 1';
     $stmt = mysqli_prepare($con, $sql);
 
     if ($stmt) {
@@ -43,6 +43,7 @@ $studentEmail = isset($student['email']) ? $student['email'] : '';
 $studentUniversity = isset($student['university']) ? $student['university'] : '';
 $studentMajor = isset($student['major']) ? $student['major'] : '';
 $studentDob = isset($student['dateOfBirth']) ? $student['dateOfBirth'] : '';
+$studentPhotoPath = isset($student['profile_photo_path']) && $student['profile_photo_path'] !== '' ? $student['profile_photo_path'] : './images/Screenshot 2026-03-23 192924.png';
 
 mysqli_close($con);
 ?>
@@ -78,7 +79,7 @@ mysqli_close($con);
 
             <div class="company-profile-left">
                 <div class="company-profile-image">
-                    <img src="./images/Screenshot 2026-03-23 192924.png" alt="Student profile">
+                    <img src="<?php echo htmlspecialchars($studentPhotoPath); ?>" alt="Student profile photo">
                 </div>
                 <h2><?php echo htmlspecialchars($studentName); ?></h2>
             </div>
