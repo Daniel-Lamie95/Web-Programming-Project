@@ -24,11 +24,16 @@
             <p>
                 Launch your journey toward internships, growth, and real opportunities.
             </p>
-            <a href="signup.html" class="main-btn">Create Account</a>
+            <div class="auth-actions" style="max-width: 320px;">
+                <a href="student-register.php" class="auth-link-btn">Register as Student</a>
+                <a href="company-register.html" class="auth-link-btn">Register as Company</a>
+            </div>
         </div>
 
         <div class="form-box">
             <h2>Login</h2>
+
+            <p id="login-error" class="switch-text" style="color:#ffcf7a; display:none;"></p>
 
             <form action="login.php" method="post">
                 <input type="email" name="email" placeholder="Enter Email" required>
@@ -53,10 +58,34 @@
 
             <p class="switch-text">
                 Don’t have an account?
-                <a href="signup.html">Sign Up</a>
+                Choose the correct registration button above.
             </p>
         </div>
     </section>
+
+    <script>
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const error = params.get('error');
+            const errorBox = document.getElementById('login-error');
+
+            if (!error || !errorBox) {
+                return;
+            }
+
+            const messages = {
+                missing_fields: 'Please enter your email, password, and role.',
+                server_error: 'A server error occurred. Please try again.',
+                invalid_credentials: 'No matching account was found. Check your email and password or register first.',
+                invalid_role: 'Please choose Student or Company before logging in.',
+                invalid_session: 'Your session is invalid. Please log in again.',
+                student_not_found: 'Your student account was not found. Please register first.'
+            };
+
+            errorBox.textContent = messages[error] || 'Login failed. Please try again.';
+            errorBox.style.display = 'block';
+        })();
+    </script>
 
 </body>
 </html>

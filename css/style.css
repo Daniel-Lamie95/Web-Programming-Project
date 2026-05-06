@@ -210,6 +210,31 @@ body {
     font-weight: bold;
 }
 
+.auth-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.auth-link-btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: var(--soft-white);
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    background: linear-gradient(90deg, var(--space-dark), var(--window-blue));
+    transition: 0.3s ease;
+}
+
+.auth-link-btn:hover {
+    opacity: 0.93;
+    transform: translateY(-1px);
+}
+
 /* Responsive */
 @media (max-width: 992px) {
     .navbar {
