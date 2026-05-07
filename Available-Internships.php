@@ -2,7 +2,15 @@
 session_start();
 include('Config.php');
 
-$userType = $_SESSION['user_type'] ?? 'student';
+if (!isset($_SESSION['user_type'])) {
+    header('Location: login.html');
+    exit();
+}
+
+if ($_SESSION['user_type'] !== 'student') {
+    header('Location: company-dashboard.php');
+    exit();
+}
 
 $query = "SELECT * FROM internships";
 $result = mysqli_query($con, $query);
@@ -23,9 +31,9 @@ $result = mysqli_query($con, $query);
 <div class="company-dashboard-logo">🚀 Launchpad</div>
 
 <ul class="company-dashboard-links">
-<li><a href="index.html">Home</a></li>
-<li><a href="student-profile.html">Profile</a></li>
-<li><a href="login.html">Logout</a></li>
+<li><a href="student-dashboard.php">Home</a></li>
+<li><a href="student-profile.php">Profile</a></li>
+<li><a href="logout.php">Logout</a></li>
 </ul>
 </nav>
 
@@ -71,9 +79,7 @@ $result = mysqli_query($con, $query);
 
 <?php while($row = mysqli_fetch_assoc($result)) { 
 
-    $link = ($userType == 'company') 
-        ? "edit-internship.php?id=" . $row['id'] 
-        : "internship-details.php?id=" . $row['id'];
+    $link = "internship-details.php?id=" . $row['id'];
 ?>
 
 <a href="<?php echo $link; ?>" class="dashboard-internship-card">

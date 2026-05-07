@@ -41,7 +41,7 @@ if (!$data) {
     <div class="company-profile-logo">🚀 Launchpad</div>
 
     <ul class="company-profile-links">
-        <li><a href="student-home.html">Home</a></li>
+        <li><a href="student-dashboard.php">Home</a></li>
         <li><a href="Available-Internships.php">Dashboard</a></li>
         <li><a href="logout.php">Logout</a></li>
     </ul>
