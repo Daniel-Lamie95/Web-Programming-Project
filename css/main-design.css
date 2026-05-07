@@ -1,0 +1,264 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* 🔹 Container + Background */
+.container {
+    background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 255, 0.4)),
+        url("wep project.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    height: 100vh;
+    width: 100%;
+}
+
+/* 🔹 Navbar */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+}
+
+.logo {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+ul {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+}
+
+ul li a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+ul li a:hover {
+    color: #00bcd4;
+}
+
+/* 🔹 Login Button */
+.btn {
+    background-color: #00bcd4;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: white;
+    color: #00bcd4;
+}
+
+/* 🔥 Hero Section */
+.content {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 50px;
+    color: white;
+}
+
+.content h1 {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.content p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* 🔹 Main Button */
+.main-btn {
+    width: fit-content;
+    background-color: #00bcd4;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.main-btn:hover {
+    background-color: white;
+    color: #00bcd4;
+}
+
+.footer {
+    background-color: #0a0f2c;
+    color: white;
+    padding: 40px 20px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    width: 22%;
+}
+
+.footer-section h2,
+.footer-section h3 {
+    margin-bottom: 15px;
+}
+
+.footer-section p {
+    font-size: 14px;
+    color: #ccc;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    color: #00bcd4;
+}
+
+.social a {
+    margin-right: 10px;
+    color: white;
+    background-color: #00bcd4;
+    padding: 8px 12px;
+    border-radius: 50%;
+    text-decoration: none;
+}
+
+.social a:hover {
+    background-color: white;
+    color: #00bcd4;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.error {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #0a0f2c;
+    color: white;
+}
+
+.contact {
+    padding: 80px 50px;
+    text-align: center;
+}
+
+.contact form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: auto;
+    gap: 15px;
+}
+
+.contact input,
+.contact textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact button {
+    background: #00bcd4;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+/* 🔥 About Section */
+.about {
+    padding: 100px 50px;
+    background: #f5f7ff;
+    text-align: center;
+}
+
+/* container */
+.about-container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+/* title */
+.about h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #0a0f2c;
+}
+
+/* paragraph */
+.about p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 50px;
+}
+
+/* cards layout */
+.about-cards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* single card */
+.card {
+    background: white;
+    padding: 25px;
+    width: 250px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+/* hover effect */
+.card:hover {
+    transform: translateY(-10px);
+}
+
+/* card text */
+.card h3 {
+    margin-bottom: 10px;
+    color: #00bcd4;
+}
