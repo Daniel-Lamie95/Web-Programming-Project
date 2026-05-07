@@ -86,6 +86,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($con, $sql);
+    
+    if (!$stmt) {
+        error_log("Prepare Error: " . mysqli_error($con));
+        header("Location: company-register.html?error=database&msg=" . urlencode(mysqli_error($con)));
+        exit();
+    }
 
     mysqli_stmt_bind_param(
         $stmt,
@@ -108,7 +114,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } else {
 
-        header("Location: company-register.html?error=database");
+        $error_msg = mysqli_error($con);
+        error_log("Company Registration Error: " . $error_msg);
+        header("Location: company-register.html?error=database&msg=" . urlencode($error_msg));
         exit();
     }
 
