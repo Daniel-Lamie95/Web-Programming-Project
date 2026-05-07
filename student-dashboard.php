@@ -1,9 +1,58 @@
+<?php
+session_start();
+include ('Config.php');
+
+if(!isset($_SESSION['user_type'])  || $_SESSION['user_type'] !== 'student'){
+    header('Location: login.html');
+    exit();
+}
+
+$student = null;
+$studentId = isset($_SESSION['user_id']) ? (int) $_SESSION['user_id'] : 0;
+
+if ($studentId <= 0) {
+    mysqli_close($con);
+    header('Location: login.html?error=invalid_session');
+    exit();
+}
+
+$sql = 'SELECT id, name, email, phonenum, university, major, dateOfBirth, profile_photo_path FROM Student WHERE id = ? LIMIT 1';
+    $stmt = mysqli_prepare($con, $sql);
+
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, 'i', $studentId);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if ($result && mysqli_num_rows($result) === 1) {
+            $student = mysqli_fetch_assoc($result);
+        }
+
+        mysqli_stmt_close($stmt);
+    }
+
+if (!$student) {
+    mysqli_close($con);
+    header('Location: login.html?error=student_not_found');
+    exit();
+}
+
+$studentName = isset($student['name']) ? $student['name'] : '';
+$studentEmail = isset($student['email']) ? $student['email'] : '';
+$studentUniversity = isset($student['university']) ? $student['university'] : '';
+$studentMajor = isset($student['major']) ? $student['major'] : '';
+$studentPhotoPath = isset($student['profile_photo_path']) && $student['profile_photo_path'] !== '' ? $student['profile_photo_path'] : './images/Screenshot 2026-03-23 192924.png';
+
+mysqli_close($con);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="company-dashboard-page">
@@ -12,9 +61,9 @@
         <div class="company-dashboard-logo">🚀 Launchpath</div>
 
         <ul class="company-dashboard-links">
-            <li><a href="student-home.html">Home</a></li>
-            <li><a href="student-profile.html">Profile</a></li>
-            <li><a href="login.html">Logout</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="student-profile.php">Profile</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>
 
@@ -30,10 +79,10 @@
         <section class="company-dashboard-top">
             <div class="company-dashboard-profile-card">
                 <div class="company-dashboard-avatar">
-                    <img src="./images/Screenshot 2026-03-23 192924.png" alt="Company Logo">
+                    <img src="<?php echo htmlspecialchars($studentPhotoPath); ?>" alt="Student profile photo">
                 </div>
-                <h3>Daniel Adel</h3>
-                <span>Css Student</span>
+                <h3><?php echo htmlspecialchars($studentName); ?></h3>
+                <span><?php echo htmlspecialchars($studentMajor); ?></span>
             </div>
 
             <div class="company-dashboard-info-card">
@@ -41,27 +90,22 @@
 
                 <div class="dashboard-info-row">
                     <span class="dashboard-label">Name</span>
-                    <span class="dashboard-value">Daniel Adel Lamie</span>
+                    <span class="dashboard-value"><?php echo htmlspecialchars($studentName); ?></span>
                 </div>
 
                 <div class="dashboard-info-row">
                     <span class="dashboard-label">Field</span>
-                    <span class="dashboard-value">Software Development</span>
+                    <span class="dashboard-value"><?php echo htmlspecialchars($studentMajor); ?></span>
                 </div>
 
                 <div class="dashboard-info-row">
                     <span class="dashboard-label">Email</span>
-                    <span class="dashboard-value">Daniel@email.com</span>
+                    <span class="dashboard-value"><?php echo htmlspecialchars($studentEmail); ?></span>
                 </div>
 
                 <div class="dashboard-info-row">
-                    <span class="dashboard-label">Location</span>
-                    <span class="dashboard-value">Cairo, Egypt</span>
-                </div>
-
-                <div class="dashboard-info-row">
-                    <span class="dashboard-label">Phone</span>
-                    <span class="dashboard-value">+20 123 456 789</span>
+                    <span class="dashboard-label">University</span>
+                    <span class="dashboard-value"><?php echo htmlspecialchars($studentUniversity); ?></span>
                 </div>
             </div>
         </section>
@@ -106,5 +150,6 @@
 
     </main>
 
+    <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
