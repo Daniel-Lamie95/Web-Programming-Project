@@ -39,12 +39,70 @@ if (!$student) {
 
 $studentName = isset($student['name']) ? $student['name'] : '';
 $studentEmail = isset($student['email']) ? $student['email'] : '';
-$studentPhone = isset($student['phonenum']) ? $student['phonenum'] : '';
 $studentUniversity = isset($student['university']) ? $student['university'] : '';
 $studentMajor = isset($student['major']) ? $student['major'] : '';
 $studentPhotoPath = isset($student['profile_photo_path']) && $student['profile_photo_path'] !== '' ? $student['profile_photo_path'] : './images/Screenshot 2026-03-23 192924.png';
 
-mysqli_close($con);
+$activeCount = 0;
+$sql_count = 'SELECT COUNT(*) AS cnt FROM student_internships WHERE student_id = ?';
+$stmt2 = mysqli_prepare($con, $sql_count);
+if ($stmt2) {
+    mysqli_stmt_bind_param($stmt2, 'i', $studentId);
+    mysqli_stmt_execute($stmt2);
+    $res2 = mysqli_stmt_get_result($stmt2);
+    if ($res2) {
+        $row2 = mysqli_fetch_assoc($res2);
+        $activeCount = isset($row2['cnt']) ? (int)$row2['cnt'] : 0;
+    }
+    mysqli_stmt_close($stmt2);
+}
+
+$activeInternships = [];
+$sql_active = 'SELECT i.id, i.title, i.field, i.start_date, i.duration FROM student_internships s JOIN internships i ON s.internship_id = i.id WHERE s.student_id = ? ORDER BY s.id DESC';
+$stmt4 = mysqli_prepare($con, $sql_active);
+if ($stmt4) {
+    mysqli_stmt_bind_param($stmt4, 'i', $studentId);
+    mysqli_stmt_execute($stmt4);
+    $res4 = mysqli_stmt_get_result($stmt4);
+    if ($res4) {
+        while ($r = mysqli_fetch_assoc($res4)) {
+            $activeInternships[] = $r;
+        }
+    }
+    mysqli_stmt_close($stmt4);
+}
+
+$appliedCount = 0;
+/*
+$sql_count = 'SELECT COUNT(*) AS apcnt FROM application WHERE student_id = ?';
+$stmt2 = mysqli_prepare($con, $sql_count);
+if ($stmt2) {
+    mysqli_stmt_bind_param($stmt2, 'i', $studentId);
+    mysqli_stmt_execute($stmt2);
+    $res2 = mysqli_stmt_get_result($stmt2);
+    if ($res2) {
+        $row2 = mysqli_fetch_assoc($res2);
+        $appliedCount = isset($row2['cnt']) ? (int)$row2['cnt'] : 0;
+    }
+    mysqli_stmt_close($stmt2);
+}
+
+$appliedInternships = [];
+$sql_apps = 'SELECT i.id, i.title, i.field, i.start_date, i.duration FROM application a JOIN internships i ON a.internship_id = i.id WHERE a.student_id = ? ORDER BY a.applied_date DESC';
+$stmt3 = mysqli_prepare($con, $sql_apps);
+if ($stmt3) {
+    mysqli_stmt_bind_param($stmt3, 'i', $studentId);
+    mysqli_stmt_execute($stmt3);
+    $res3 = mysqli_stmt_get_result($stmt3);
+    if ($res3) {
+        while ($r = mysqli_fetch_assoc($res3)) {
+            $appliedInternships[] = $r;
+        }
+    }
+    mysqli_stmt_close($stmt3);
+}
+*/
+
 
 ?>
 <!DOCTYPE html>
@@ -62,7 +120,7 @@ mysqli_close($con);
         <div class="company-dashboard-logo">🚀 Launchpath</div>
 
         <ul class="company-dashboard-links">
-            <li><a href="student-home.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="student-profile.php">Profile</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
@@ -105,25 +163,20 @@ mysqli_close($con);
                 </div>
 
                 <div class="dashboard-info-row">
-                    <span class="dashboard-label">Location</span>
+                    <span class="dashboard-label">University</span>
                     <span class="dashboard-value"><?php echo htmlspecialchars($studentUniversity); ?></span>
-                </div>
-
-                <div class="dashboard-info-row">
-                    <span class="dashboard-label">Phone</span>
-                    <span class="dashboard-value"><?php echo htmlspecialchars($studentPhone); ?></span>
                 </div>
             </div>
         </section>
 
         <section class="company-dashboard-stats">
             <div class="dashboard-stat-card">
-                <h3>3</h3>
+                <h3><?php echo (int) $appliedCount?></h3>
                 <p>Applied Internships</p>
             </div>
 
             <div class="dashboard-stat-card">
-                <h3>2</h3>
+                <h3><?php echo (int)$activeCount; ?></h3>
                 <p>Active Internships</p>
             </div>
 
@@ -131,31 +184,51 @@ mysqli_close($con);
         </section>
 
         <section class="company-dashboard-internships">
+            <h2>Active Internships</h2>
+
+            <div class="company-dashboard-internships-grid">
+                <?php if (empty($activeInternships)) { ?>
+                    <p>You have no active internships.</p>
+                <?php } else { ?>
+                    <?php foreach ($activeInternships as $act) { ?>
+                        <a href="internship-details.php?id=<?php echo (int)$act['id']; ?>" class="dashboard-internship-card">
+                            <h3><?php echo htmlspecialchars($act['title']); ?></h3>
+                            <p><?php echo htmlspecialchars($act['field']); ?></p>
+                            <span><?php echo date("F Y", strtotime($act['start_date'])) . ' - ' . htmlspecialchars($act['duration']); ?></span>
+                        </a>
+                    <?php } ?>
+                <?php } ?>
+            </div>
+        </section>
+<!--
+        <section class="company-dashboard-internships">
             <h2>Applied Internships</h2>
 
             <div class="company-dashboard-internships-grid">
-                <div class="dashboard-internship-card">
-                    <h3>Frontend Internship</h3>
-                    <p>Web Development</p>
-                    <span>June 2026 - August 2026</span>
-                </div>
-
-                <div class="dashboard-internship-card">
-                    <h3>Backend Internship</h3>
-                    <p>Software Engineering</p>
-                    <span>July 2026 - September 2026</span>
-                </div>
-
-                <div class="dashboard-internship-card">
-                    <h3>UI/UX Internship</h3>
-                    <p>Design</p>
-                    <span>August 2026 - October 2026</span>
-                </div>
+                <?php if (empty($appliedInternships)) { ?>
+                    <p>You haven't applied to any internships yet.</p>
+                <?php } else { ?>
+                    <?php foreach ($appliedInternships as $app) { ?>
+                        <a href="internship-details.php?id=<?php echo (int)$app['id']; ?>" class="dashboard-internship-card">
+                            <h3><?php echo htmlspecialchars($app['title']); ?></h3>
+                            <p><?php echo htmlspecialchars($app['field']); ?></p>
+                            <span><?php echo date("F Y", strtotime($app['start_date'])) . ' - ' . htmlspecialchars($app['duration']); ?></span>
+                        </a>
+                    <?php } ?>
+                <?php } ?>
             </div>
         </section>
+-->
 
     </main>
 
     <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<?php
+// Close DB connection after rendering
+if (isset($con) && is_resource($con)) {
+    mysqli_close($con);
+}
+?>

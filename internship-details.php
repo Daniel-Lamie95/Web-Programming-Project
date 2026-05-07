@@ -2,6 +2,12 @@
 session_start();
 include('Config.php');
 
+/* 🔒 Only allow students */
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'student') {
+    header("Location: login.html");
+    exit();
+}
+
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
 if ($id <= 0) {
@@ -52,7 +58,7 @@ if (!$data) {
 
     <div class="company-profile-left">
         <div class="company-profile-image">
-            <img src="images/<?php echo htmlspecialchars($data['logo']); ?>" alt="logo">
+            <img src="images/<?php echo !empty($data['logo']) ? htmlspecialchars($data['logo']) : 'default.png'; ?>" alt="logo">
         </div>
         <h2><?php echo htmlspecialchars($data['title']); ?></h2>
     </div>
@@ -72,7 +78,9 @@ if (!$data) {
 
         <div class="profile-row">
             <span class="profile-label">Start Date</span>
-            <span class="profile-value"><?php echo htmlspecialchars($data['start_date']); ?></span>
+            <span class="profile-value">
+                <?php echo date("d F Y", strtotime($data['start_date'])); ?>
+            </span>
         </div>
 
         <div class="profile-row">
@@ -81,7 +89,7 @@ if (!$data) {
         </div>
 
         <div class="profile-row">
-            <span class="profile-label">Field</span>
+            <span class="profile-label">Field / Industry</span>
             <span class="profile-value"><?php echo htmlspecialchars($data['field']); ?></span>
         </div>
 
@@ -99,7 +107,7 @@ if (!$data) {
 
 </main>
 
-<!-- ✅ JS for CV validation -->
+<!-- ✅ JS for CV validation (UNCHANGED) -->
 <script>
 const fileInput = document.getElementById("cvUpload");
 const statusText = document.getElementById("uploadStatus");

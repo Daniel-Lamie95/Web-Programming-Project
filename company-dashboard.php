@@ -1,3 +1,8 @@
+<?php
+include("comany-session.php");
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +18,8 @@
 
         <ul class="company-dashboard-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="company-profile.html">Profile</a></li>
-            <li><a href="login.html">Logout</a></li>
+            <li><a href="company-profile.php">Profile</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>
 
@@ -30,10 +35,10 @@
         <section class="company-dashboard-top">
             <div class="company-dashboard-profile-card">
                 <div class="company-dashboard-avatar">
-                    <img src="images/main_logo.jpeg" alt="Company Logo">
+                    <img src= "<?php echo $company['Logo']; ?>  alt="Company Logo">
                 </div>
-                <h3>Tech Company</h3>
-                <span>Software Development</span>
+                <h3><?php echo $company['Name']; ?></h3>
+                <span><?php echo $company['Field']; ?></span>
             </div>
 
             <div class="company-dashboard-info-card">
@@ -41,27 +46,27 @@
 
                 <div class="dashboard-info-row">
                     <span class="dashboard-label">Company Name</span>
-                    <span class="dashboard-value">Tech Company</span>
+                   <span class="dashboard-value"> <?php echo $company['Name']; ?></span>
                 </div>
 
                 <div class="dashboard-info-row">
                     <span class="dashboard-label">Field</span>
-                    <span class="dashboard-value">Software Development</span>
+                    <span class="dashboard-value"> <?php echo $company['Field']; ?> </span>
                 </div>
 
                 <div class="dashboard-info-row">
                     <span class="dashboard-label">Email</span>
-                    <span class="dashboard-value">company@email.com</span>
+                    <span class="dashboard-value"> <?php echo $company['Email']; ?> </span>
                 </div>
 
                 <div class="dashboard-info-row">
                     <span class="dashboard-label">Location</span>
-                    <span class="dashboard-value">Cairo, Egypt</span>
+                    <span class="dashboard-value"> <?php echo $company['Location']; ?> </span>
                 </div>
 
                 <div class="dashboard-info-row">
                     <span class="dashboard-label">Phone</span>
-                    <span class="dashboard-value">+20 123 456 789</span>
+                   <span class="dashboard-value"> <?php echo $company['Phone']; ?> </span>
                 </div>
             </div>
         </section>

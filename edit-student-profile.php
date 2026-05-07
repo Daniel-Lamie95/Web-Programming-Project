@@ -163,7 +163,7 @@ mysqli_close($con);
         <div class="logo">🚀 Launchpath</div>
 
         <ul class="nav-links">
-            <li><a href="student-home.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="student-dashboard.php">Dashboard</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>

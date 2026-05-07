@@ -1,3 +1,9 @@
+<?php
+include("comany-session.php");
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +18,10 @@
         <div class="company-profile-logo">🚀 Launchpath</div>
 
         <ul class="company-profile-links">
-            <li><a href="homepage.html">Home</a></li>
-            <li><a href="company-dashboard.html">Dashboard</a></li>
-            <li><a href="company-profile.html">Profile</a></li>
-            <li><a href="login.html">Logout</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="company-dashboard.php">Dashboard</a></li>
+            <li><a href="company-profile.php">Profile</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>
 
@@ -30,49 +36,49 @@
 
             <div class="company-profile-left">
                 <div class="company-profile-image">
-                    <img src="images/main_logo.jpeg" alt="Company Logo">
+                   <img src="<?php echo $company['Logo']; ?>" alt="Company Logo">
                 </div>
-                <h2>Tech Company</h2>
-                <span>Software Development</span>
+                <h2><?php echo $company['Name']; ?></h2>
+                <span><?php echo $company['Field']; ?></span>
             </div>
 
             <div class="company-profile-right">
                 <h2>Edit Information</h2>
 
-                <form>
+                <form action="update-company-profile.php" method="post" enctype="multipart/form-data">
                     <div class="profile-row">
                         <label class="profile-label" for="companyName">Company Name</label>
-                        <input type="text" id="companyName" name="companyName" value="Tech Company">
+                       <input type="text" id="companyName" name="companyName" value="<?php echo $company['Name']; ?>" >
                     </div>
 
                     <div class="profile-row">
                         <label class="profile-label" for="companyEmail">Email</label>
-                        <input type="email" id="companyEmail" name="companyEmail" value="company@email.com">
+                      <input type="email" id="companyEmail" name="companyEmail" value="<?php echo $company['Email']; ?>">
                     </div>
 
                     <div class="profile-row">
                         <label class="profile-label" for="phone">Phone Number</label>
-                        <input type="text" id="phone" name="phone" value="+20 123 456 789">
+                        <input type="text" id="phone" name="phone" value="<?php echo $company['Phone']; ?>">
                     </div>
 
                     <div class="profile-row">
                         <label class="profile-label" for="location">Location</label>
-                        <input type="text" id="location" name="location" value="Cairo, Egypt">
+                       <input type="text" id="location" name="location" value="<?php echo $company['Location']; ?>">
                     </div>
 
                     <div class="profile-row">
                         <label class="profile-label" for="field">Field / Industry</label>
-                        <input type="text" id="field" name="field" value="Software Development">
+                        <input type="text" id="field" name="field" value="<?php echo $company['Field']; ?>">
                     </div>
 
                     <div class="profile-row">
                         <label class="profile-label" for="website">Website</label>
-                        <input type="url" id="website" name="website" value="https://www.techcompany.com">
+                       <input type="url" id="website" name="website" value="<?php echo $company['Website']; ?>">
                     </div>
 
                     <div class="profile-row description-row">
                         <label class="profile-label" for="description">Description</label>
-                        <textarea id="description" name="description" rows="5">Tech Company provides internship opportunities for students in web development, software engineering, and UI/UX design.</textarea>
+                        <textarea id="description" name="description" rows="5"><?php echo $company['Description']; ?></textarea>
                     </div>
 
                     <div class="profile-row">
@@ -81,7 +87,7 @@
                     </div>
 
                     <div class="company-profile-buttons">
-                        <a href="company-profile.html" class="profile-btn">Cancel</a>
+                        <a href="company-profile.php" class="profile-btn">Cancel</a>
                         <button type="submit" class="profile-btn">Save Changes</button>
                     </div>
                 </form>
