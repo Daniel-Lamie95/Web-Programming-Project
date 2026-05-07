@@ -1,7 +1,8 @@
 <?php
-include("comany-session.php");
-?>
 
+include("company-session.php");
+
+?>
 
 
 <!DOCTYPE html>

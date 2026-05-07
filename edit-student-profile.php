@@ -154,59 +154,90 @@ mysqli_close($con);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Student Profile - Launchpath</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="auth-page">
+<body class="company-profile-page">
 
-    <nav class="navbar">
-        <div class="logo">🚀 Launchpath</div>
+    <nav class="company-profile-navbar">
+        <div class="company-profile-logo">🚀 Launchpath</div>
 
-        <ul class="nav-links">
+        <ul class="company-profile-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="student-dashboard.php">Dashboard</a></li>
+            <li><a href="student-profile.php">Profile</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>
 
-    <section class="hero">
-        <div class="hero-text">
-            <h1>Edit Your <span class="highlight">Profile</span></h1>
-            <p>
-                Update your student information to keep your profile complete and up to date.
-            </p>
-        </div>
+    <main class="company-profile-container">
 
-        <div class="form-box company-form-box">
-            <h2>Edit Student Profile</h2>
+        <section class="company-profile-hero">
+            <h1>Edit Student Profile</h1>
+            <p>Update your student information to keep your profile complete and up to date.</p>
+        </section>
 
-            <?php if ($errorMessage !== '') { ?>
-                <p class="switch-text" style="color:#dc3545;"><?php echo htmlspecialchars($errorMessage); ?></p>
-            <?php } ?>
+        <section class="company-profile-card">
 
-            <form action="edit-student-profile.php" method="post" enctype="multipart/form-data">
-                <div class="company-profile-image" style="margin-bottom: 20px;">
+            <div class="company-profile-left">
+                <div class="company-profile-image">
                     <img src="<?php echo htmlspecialchars($studentPhotoPath); ?>" alt="Student profile photo">
                 </div>
-                <input type="text" name="name" placeholder="Name" value="<?php echo htmlspecialchars($studentName); ?>" required>
-                <input type="email" name="email" placeholder="Email" value="<?php echo htmlspecialchars($studentEmail); ?>" required>
-                <input type="text" name="phonenum" placeholder="Phone Number" value="<?php echo htmlspecialchars($studentPhone); ?>" required>
-                <input type="password" name="password" placeholder="New Password (leave empty to keep current)">
-                <input type="text" name="university" placeholder="University" value="<?php echo htmlspecialchars($studentUniversity); ?>" required>
-                <input type="text" name="major" placeholder="Major" value="<?php echo htmlspecialchars($studentMajor); ?>" required>
-                <label class="file-label">Date of Birth</label>
-                <input type="date" name="dateOfBirth" value="<?php echo htmlspecialchars($studentDob); ?>">
-                <label class="file-label">Change Profile Photo</label>
-                <input type="file" name="profile_photo" accept="image/*">
-                <br><br>
-                <button type="submit" class="form-btn">Save Changes</button>
-                <br>
-                <br>
-                <button type="button" class="form-btn" onclick="location.href='student-profile.php'">Cancel</button>
-            </form>
-        </div>
-    </section>
+                <h2><?php echo htmlspecialchars($studentName); ?></h2>
+                <span>Student Profile</span>
+            </div>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
+            <div class="company-profile-right">
+                <h2>Edit Information</h2>
+
+                <?php if ($errorMessage !== '') { ?>
+                    <p class="switch-text" style="color:#dc3545; margin-bottom: 16px;"><?php echo htmlspecialchars($errorMessage); ?></p>
+                <?php } ?>
+
+                <form action="edit-student-profile.php" method="post" enctype="multipart/form-data">
+                    <div class="profile-row">
+                        <label class="profile-label" for="name">Name</label>
+                        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($studentName); ?>" required>
+                    </div>
+
+                    <div class="profile-row">
+                        <label class="profile-label" for="email">Email</label>
+                        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($studentEmail); ?>" required>
+                    </div>
+
+                    <div class="profile-row">
+                        <label class="profile-label" for="phonenum">Phone Number</label>
+                        <input type="text" id="phonenum" name="phonenum" value="<?php echo htmlspecialchars($studentPhone); ?>" required>
+                    </div>
+
+                    <div class="profile-row">
+                        <label class="profile-label" for="university">University</label>
+                        <input type="text" id="university" name="university" value="<?php echo htmlspecialchars($studentUniversity); ?>" required>
+                    </div>
+
+                    <div class="profile-row">
+                        <label class="profile-label" for="major">Major</label>
+                        <input type="text" id="major" name="major" value="<?php echo htmlspecialchars($studentMajor); ?>" required>
+                    </div>
+
+                    <div class="profile-row">
+                        <label class="profile-label" for="dateOfBirth">Date of Birth</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth" value="<?php echo htmlspecialchars($studentDob); ?>">
+                    </div>
+
+                    <div class="profile-row">
+                        <label class="profile-label" for="profile_photo">Change Profile Photo</label>
+                        <input type="file" id="profile_photo" name="profile_photo" accept="image/*">
+                    </div>
+
+                    <div class="company-profile-buttons">
+                        <a href="student-profile.php" class="profile-btn">Cancel</a>
+                        <button type="submit" class="profile-btn">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </section>
+
+    </main>
 </body>
 </html>

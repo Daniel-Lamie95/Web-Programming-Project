@@ -2,8 +2,11 @@
 session_start();
 include('Config.php');
 
-/* 🔒 Only allow students */
-if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'student') {
+/* 🔒 Allow both students and companies */
+$isStudent = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'student';
+$isCompany = isset($_SESSION['CompanyID']);
+
+if (!$isStudent && !$isCompany) {
     header("Location: login.html");
     exit();
 }
@@ -24,6 +27,12 @@ if (!$data) {
     echo "Internship not found";
     exit();
 }
+
+/* 🔐 Check if company owns this internship */
+$isOwner = false;
+if ($isCompany && isset($data['company_id'])) {
+    $isOwner = ($data['company_id'] == $_SESSION['CompanyID']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +50,7 @@ if (!$data) {
     <div class="company-profile-logo">🚀 Launchpad</div>
 
     <ul class="company-profile-links">
-        <li><a href="student-dashboard.php">Home</a></li>
+        <li><a href="student-home.html">Home</a></li>
         <li><a href="Available-Internships.php">Dashboard</a></li>
         <li><a href="logout.php">Logout</a></li>
     </ul>
@@ -51,7 +60,7 @@ if (!$data) {
 
 <section class="company-profile-hero">
     <h1><?php echo htmlspecialchars($data['title']); ?></h1>
-    <p>View internship details and apply</p>
+    <p><?php echo $isStudent ? 'View internship details and apply' : 'View and manage internship details'; ?></p>
 </section>
 
 <section class="company-profile-card">
@@ -94,9 +103,13 @@ if (!$data) {
         </div>
 
         <div class="company-profile-buttons">
-            <label for="cvUpload" class="profile-btn">Apply (Upload CV)</label>
-            <input type="file" id="cvUpload" hidden>
-            <p id="uploadStatus"></p>
+            <?php if ($isStudent): ?>
+                <label for="cvUpload" class="profile-btn">Apply (Upload CV)</label>
+                <input type="file" id="cvUpload" hidden>
+                <p id="uploadStatus"></p>
+            <?php elseif ($isCompany && $isOwner): ?>
+                <a href="edit-internship-profile.php?id=<?php echo $id; ?>" class="profile-btn">Edit Internship</a>
+            <?php endif; ?>
 
             <a href="Available-Internships.php" class="profile-btn">Back</a>
         </div>
@@ -107,7 +120,8 @@ if (!$data) {
 
 </main>
 
-<!-- ✅ JS for CV validation (UNCHANGED) -->
+<!-- ✅ JS for CV validation (only for students) -->
+<?php if ($isStudent): ?>
 <script>
 const fileInput = document.getElementById("cvUpload");
 const statusText = document.getElementById("uploadStatus");
@@ -125,6 +139,7 @@ fileInput.addEventListener("change", function () {
     statusText.innerText = "✅ Uploaded: " + file.name;
 });
 </script>
+<?php endif; ?>
 
 </body>
 </html>

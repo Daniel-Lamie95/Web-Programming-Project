@@ -6,7 +6,7 @@ if(!isset($_SESSION['user_type'])  || $_SESSION['user_type'] !== 'student'){
     header('Location: login.html');
     exit();
 }
-
+$isStudent = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'student';
 $student = null;
 $studentId = isset($_SESSION['user_id']) ? (int) $_SESSION['user_id'] : 0;
 
@@ -153,7 +153,7 @@ if ($stmt3) {
                 </div>
 
                 <div class="dashboard-info-row">
-                    <span class="dashboard-label">Field</span>
+                    <span class="dashboard-label">Major</span>
                     <span class="dashboard-value"><?php echo htmlspecialchars($studentMajor); ?></span>
                 </div>
 
@@ -166,6 +166,12 @@ if ($stmt3) {
                     <span class="dashboard-label">University</span>
                     <span class="dashboard-value"><?php echo htmlspecialchars($studentUniversity); ?></span>
                 </div>
+                <?php if($isStudent): ?>
+
+                <div class="company-profile-buttons">
+                    <a href="student-profile.php" class="profile-btn">Back to Profile</a>
+                    <a href="#" class="profile-btn">CV</a>
+                </div>
             </div>
         </section>
 
@@ -177,18 +183,18 @@ if ($stmt3) {
 
             <div class="dashboard-stat-card">
                 <h3><?php echo (int)$activeCount; ?></h3>
-                <p>Active Internships</p>
+                <p>Accepted Internships</p>
             </div>
 
         
         </section>
 
         <section class="company-dashboard-internships">
-            <h2>Active Internships</h2>
+            <h2>Accepted Internships</h2>
 
             <div class="company-dashboard-internships-grid">
                 <?php if (empty($activeInternships)) { ?>
-                    <p>You have no active internships.</p>
+                    <p>You have no accepted internships.</p>
                 <?php } else { ?>
                     <?php foreach ($activeInternships as $act) { ?>
                         <a href="internship-details.php?id=<?php echo (int)$act['id']; ?>" class="dashboard-internship-card">
@@ -219,6 +225,7 @@ if ($stmt3) {
             </div>
         </section>
 -->
+        <?php endif; ?>
 
     </main>
 

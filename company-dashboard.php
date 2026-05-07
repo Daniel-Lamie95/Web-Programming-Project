@@ -1,7 +1,21 @@
 <?php
-include("comany-session.php");
+include("config.php");
+include("company-session.php");
+$postedInternships = [];
+$sql_active = 'SELECT i.id, i.title, i.field, i.start_date, i.duration FROM internships i WHERE i.company_id = ? ORDER BY i.id DESC';
+$stmt4 = mysqli_prepare($con, $sql_active);
+if ($stmt4) {
+    mysqli_stmt_bind_param($stmt4, 'i', $companyID);
+    mysqli_stmt_execute($stmt4);
+    $res4 = mysqli_stmt_get_result($stmt4);
+    if ($res4) {
+        while ($r = mysqli_fetch_assoc($res4)) {
+            $postedInternships[] = $r;
+        }
+    }
+    mysqli_stmt_close($stmt4);
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +49,7 @@ include("comany-session.php");
         <section class="company-dashboard-top">
             <div class="company-dashboard-profile-card">
                 <div class="company-dashboard-avatar">
-                    <img src= "<?php echo $company['Logo']; ?>  alt="Company Logo">
+                    <img src="<?php echo $company['Logo']; ?>" alt="Company Logo">
                 </div>
                 <h3><?php echo $company['Name']; ?></h3>
                 <span><?php echo $company['Field']; ?></span>
@@ -73,7 +87,7 @@ include("comany-session.php");
 
         <section class="company-dashboard-stats">
             <div class="dashboard-stat-card">
-                <h3>12</h3>
+                <h3><?php echo count($postedInternships); ?></h3>
                 <p>Posted Internships</p>
             </div>
 
@@ -117,24 +131,19 @@ include("comany-session.php");
             <h2>Recent Internships</h2>
 
             <div class="company-dashboard-internships-grid">
-                <div class="dashboard-internship-card">
-                    <h3>Frontend Internship</h3>
-                    <p>Web Development</p>
-                    <span>June 2026 - August 2026</span>
-                </div>
-
-                <div class="dashboard-internship-card">
-                    <h3>Backend Internship</h3>
-                    <p>Software Engineering</p>
-                    <span>July 2026 - September 2026</span>
-                </div>
-
-                <div class="dashboard-internship-card">
-                    <h3>UI/UX Internship</h3>
-                    <p>Design</p>
-                    <span>August 2026 - October 2026</span>
-                </div>
+                <?php if (empty($postedInternships)) { ?>
+                    <p>You have no accpostedepted internships.</p>
+                <?php } else { ?>
+                    <?php foreach ($postedInternships as $act) { ?>
+                        <a href="internship-details.php?id=<?php echo (int)$act['id']; ?>" class="dashboard-internship-card">
+                            <h3><?php echo htmlspecialchars($act['title']); ?></h3>
+                            <p><?php echo htmlspecialchars($act['field']); ?></p>
+                            <span><?php echo date("F Y", strtotime($act['start_date'])) . ' - ' . htmlspecialchars($act['duration']); ?></span>
+                        </a>
+                    <?php } ?>
+                <?php } ?>
             </div>
+        </section>
         </section>
 
     </main>
