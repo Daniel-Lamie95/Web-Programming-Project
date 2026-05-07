@@ -40,6 +40,7 @@ if (!$student) {
 
 $studentName = isset($student['name']) ? $student['name'] : '';
 $studentEmail = isset($student['email']) ? $student['email'] : '';
+$studentPhone = isset($student['phonenum']) ? $student['phonenum'] : '';
 $studentUniversity = isset($student['university']) ? $student['university'] : '';
 $studentMajor = isset($student['major']) ? $student['major'] : '';
 $studentDob = isset($student['dateOfBirth']) ? $student['dateOfBirth'] : '';
@@ -62,7 +63,7 @@ mysqli_close($con);
         <div class="company-profile-logo">🚀 Launchpath</div>
 
         <ul class="company-profile-links">
-            <li><a href="student-home.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="student-dashboard.php">Dashboard</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
@@ -95,6 +96,11 @@ mysqli_close($con);
                 <div class="profile-row">
                     <span class="profile-label">Email</span>
                     <span class="profile-value"><?php echo htmlspecialchars($studentEmail); ?></span>
+                </div>
+
+                <div class="profile-row">
+                    <span class="profile-label">Phone</span>
+                    <span class="profile-value"><?php echo htmlspecialchars($studentPhone); ?></span>
                 </div>
 
                 <div class="profile-row">
