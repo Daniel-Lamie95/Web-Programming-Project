@@ -65,7 +65,7 @@ if ($userType === 'company') {
 
 	if ($result && mysqli_num_rows($result) === 1) {
 		$company = mysqli_fetch_assoc($result);
-		$_SESSION['user_id'] = isset($company['Id']) ? $company['Id'] : null;
+		$_SESSION['user_id'] = isset($company['ID']) ? $company['ID'] : null;
 		$_SESSION['user_name'] = isset($company['Name']) ? $company['Name'] : '';
 		$_SESSION['user_type'] = 'company';
 
