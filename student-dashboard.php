@@ -177,18 +177,18 @@ if ($stmt3) {
 
             <div class="dashboard-stat-card">
                 <h3><?php echo (int)$activeCount; ?></h3>
-                <p>Active Internships</p>
+                <p>Accepted Internships</p>
             </div>
 
         
         </section>
 
         <section class="company-dashboard-internships">
-            <h2>Active Internships</h2>
+            <h2>Accepted Internships</h2>
 
             <div class="company-dashboard-internships-grid">
                 <?php if (empty($activeInternships)) { ?>
-                    <p>You have no active internships.</p>
+                    <p>You have no accepted internships.</p>
                 <?php } else { ?>
                     <?php foreach ($activeInternships as $act) { ?>
                         <a href="internship-details.php?id=<?php echo (int)$act['id']; ?>" class="dashboard-internship-card">
