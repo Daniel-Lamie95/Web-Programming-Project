@@ -1,3 +1,7 @@
+<?php
+include("comany-session.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +17,8 @@
 
         <ul class="company-profile-links">
             <li><a href="homepage.html">Home</a></li>
-            <li><a href="company-dashboard.html">Dashboard</a></li>
-            <li><a href="login.html">Logout</a></li>
+            <li><a href="company-dashboard.php">Dashboard</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>
 
@@ -29,10 +33,10 @@
 
             <div class="company-profile-left">
                 <div class="company-profile-image">
-                    <img src="images/main_logo.jpeg" alt="Company Logo">
+                    <img src="<?php echo $company['Logo']; ?>" alt="Company Logo">
                 </div>
-                <h2>Tech Company</h2>
-                <span>Software Development</span>
+               <h2><?php echo $company['Name']; ?></h2>
+               <span><?php echo $company['Field']; ?></span>
             </div>
 
             <div class="company-profile-right">
@@ -40,45 +44,42 @@
 
                 <div class="profile-row">
                     <span class="profile-label">Company Name</span>
-                    <span class="profile-value">Tech Company</span>
+                    <span class="profile-value"><?php echo $company['Name']; ?></span>
                 </div>
 
                 <div class="profile-row">
                     <span class="profile-label">Email</span>
-                    <span class="profile-value">company@email.com</span>
+                   <span class="profile-value"><?php echo $company['Email']; ?></span>
                 </div>
 
                 <div class="profile-row">
                     <span class="profile-label">Phone Number</span>
-                    <span class="profile-value">+20 123 456 789</span>
+                    <span class="profile-value"><?php echo $company['Phone']; ?></span>
                 </div>
 
                 <div class="profile-row">
                     <span class="profile-label">Location</span>
-                    <span class="profile-value">Cairo, Egypt</span>
+                   <span class="profile-value"><?php echo $company['Location']; ?></span>
                 </div>
 
                 <div class="profile-row">
                     <span class="profile-label">Field / Industry</span>
-                    <span class="profile-value">Software Development</span>
+                   <span class="profile-value"><?php echo $company['Field']; ?></span>
                 </div>
 
                 <div class="profile-row">
                     <span class="profile-label">Website</span>
-                    <span class="profile-value">www.techcompany.com</span>
+                   <span class="profile-value"><?php echo $company['Website']; ?></span>
                 </div>
 
                 <div class="profile-row description-row">
                     <span class="profile-label">Description</span>
-                    <span class="profile-value">
-                        Tech Company provides internship opportunities for students in web development,
-                        software engineering, and UI/UX design.
-                    </span>
+                    <span class="profile-value"> <?php echo $company['Description']; ?> </span>
                 </div>
 
                 <div class="company-profile-buttons">
-                    <a href="edit-company-profile.html" class="profile-btn">Edit Profile</a>
-                    <a href="company-dashboard.html" class="profile-btn">Back to Dashboard</a>
+                    <a href="edit-company-profile.php" class="profile-btn">Edit Profile</a>
+                    <a href="company-dashboard.php" class="profile-btn">Back to Dashboard</a>
                 </div>
             </div>
 
