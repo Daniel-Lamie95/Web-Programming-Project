@@ -39,7 +39,6 @@ if (!$student) {
 
 $studentName = isset($student['name']) ? $student['name'] : '';
 $studentEmail = isset($student['email']) ? $student['email'] : '';
-$studentPhone = isset($student['phonenum']) ? $student['phonenum'] : '';
 $studentUniversity = isset($student['university']) ? $student['university'] : '';
 $studentMajor = isset($student['major']) ? $student['major'] : '';
 $studentPhotoPath = isset($student['profile_photo_path']) && $student['profile_photo_path'] !== '' ? $student['profile_photo_path'] : './images/Screenshot 2026-03-23 192924.png';
@@ -105,13 +104,8 @@ mysqli_close($con);
                 </div>
 
                 <div class="dashboard-info-row">
-                    <span class="dashboard-label">Location</span>
+                    <span class="dashboard-label">University</span>
                     <span class="dashboard-value"><?php echo htmlspecialchars($studentUniversity); ?></span>
-                </div>
-
-                <div class="dashboard-info-row">
-                    <span class="dashboard-label">Phone</span>
-                    <span class="dashboard-value"><?php echo htmlspecialchars($studentPhone); ?></span>
                 </div>
             </div>
         </section>
