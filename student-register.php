@@ -81,7 +81,7 @@
         <div class="logo">🚀 Launchpath</div>
 
         <ul class="nav-links">
-            <li><a href="student-home.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="About Us Page.html">About Us</a></li>
             <li><a href="Contact Page.html">Contact</a></li>
         </ul>

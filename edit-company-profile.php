@@ -18,7 +18,7 @@ include("comany-session.php");
         <div class="company-profile-logo">🚀 Launchpath</div>
 
         <ul class="company-profile-links">
-            <li><a href="homepage.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="company-dashboard.php">Dashboard</a></li>
             <li><a href="company-profile.php">Profile</a></li>
             <li><a href="logout.php">Logout</a></li>
