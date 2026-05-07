@@ -2,36 +2,38 @@
 session_start();
 include('Config.php');
 
-/* 🔒 Check company login (adjust if your session name is different) */
+/* 🔒 Check company login */
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'company') {
     header('Location: login.html');
     exit();
 }
 
-/* 📌 Get internship ID from URL */
+$company_id = $_SESSION['user_id'];
+
+/* 📌 Get internship ID */
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
 if ($id <= 0) {
-    header('Location: Available-Internships.html');
+    header('Location: Available-Internships.php');
     exit();
 }
 
-/* 📥 GET internship data */
-$sql = "SELECT * FROM internships WHERE id = ? LIMIT 1";
+/* 📥 GET internship (ONLY this company’s internship) */
+$sql = "SELECT * FROM internships WHERE id = ? AND company_id = ? LIMIT 1";
 $stmt = mysqli_prepare($con, $sql);
 
-mysqli_stmt_bind_param($stmt, 'i', $id);
+mysqli_stmt_bind_param($stmt, 'ii', $id, $company_id);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
 $data = mysqli_fetch_assoc($result);
 
 if (!$data) {
-    header('Location: Available-Internships.html');
+    header('Location: Available-Internships.php');
     exit();
 }
 
-/* 💾 UPDATE when form submitted */
+/* 💾 UPDATE */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $duration = $_POST['duration'];
@@ -46,17 +48,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         start_date = ?, 
         location = ?, 
         field = ?
-        WHERE id = ?";
+        WHERE id = ? AND company_id = ?";
 
     $stmt = mysqli_prepare($con, $update);
-    mysqli_stmt_bind_param($stmt, 'sssssi', $duration, $description, $startDate, $location, $field, $id);
+    mysqli_stmt_bind_param($stmt, 'sssssii', 
+        $duration, $description, $startDate, $location, $field, $id, $company_id
+    );
     mysqli_stmt_execute($stmt);
 
-    /* 🔄 Reload updated data */
     header("Location: edit-internship.php?id=" . $id);
     exit();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
