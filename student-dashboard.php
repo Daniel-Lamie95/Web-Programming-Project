@@ -6,7 +6,7 @@ if(!isset($_SESSION['user_type'])  || $_SESSION['user_type'] !== 'student'){
     header('Location: login.html');
     exit();
 }
-
+$isStudent = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'student';
 $student = null;
 $studentId = isset($_SESSION['user_id']) ? (int) $_SESSION['user_id'] : 0;
 
@@ -153,7 +153,7 @@ if ($stmt3) {
                 </div>
 
                 <div class="dashboard-info-row">
-                    <span class="dashboard-label">Field</span>
+                    <span class="dashboard-label">Major</span>
                     <span class="dashboard-value"><?php echo htmlspecialchars($studentMajor); ?></span>
                 </div>
 
@@ -165,6 +165,12 @@ if ($stmt3) {
                 <div class="dashboard-info-row">
                     <span class="dashboard-label">University</span>
                     <span class="dashboard-value"><?php echo htmlspecialchars($studentUniversity); ?></span>
+                </div>
+                <?php if($isStudent): ?>
+
+                <div class="company-profile-buttons">
+                    <a href="student-profile.php" class="profile-btn">Back to Profile</a>
+                    <a href="#" class="profile-btn">CV</a>
                 </div>
             </div>
         </section>
@@ -219,6 +225,7 @@ if ($stmt3) {
             </div>
         </section>
 -->
+        <?php endif; ?>
 
     </main>
 
