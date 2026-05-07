@@ -2,12 +2,14 @@
 session_start();
 include("Config.php");
 
-if (!isset($_SESSION['CompanyID'])) {
-    header("Location: login.html");
+if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'company') {
+     header("Location: login.html");
+
     exit();
+
 }
 
-$companyID = $_SESSION['CompanyID'];
+$companyID = $_SESSION['user_id'];
 
 $sql = "SELECT * FROM Company WHERE ID = ?";
 
