@@ -1,0 +1,71 @@
+@ -1,70 +0,0 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launchpath - Sign Up</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-page">
+
+    <nav class="navbar">
+        <div class="logo">🚀 Launchpath</div>
+
+        <ul class="nav-links">
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Start Your <span class="highlight">Journey</span></h1>
+            <p>
+                 Launch your journey toward internship growth and real opportunities. Discover hands-on experiences, connect with real companies, and turn your potential into powerful results. 
+            </p>
+            <a href="login.html" class="main-btn">Already Have an Account?</a>
+        </div>
+
+        <div class="form-box">
+            <h2>Sign Up</h2>
+
+            <form action="signup" method="post">
+                <input type="text" name="name" placeholder="Enter Name" required>
+                <input type="email" name="email" placeholder="Enter Email" required>
+                <input type="password" name="password" placeholder="Enter Password" required>
+
+                <div class="role-box">
+                    <p>Select Role:</p>
+
+                    <div class="role-options">
+                        <label>
+                            <input type="radio" name="role" value="student" required>
+                            Student
+                        </label>
+
+                        <label>
+                            <input type="radio" name="role" value="company">
+                            Company
+                        </label>
+
+                        <label>
+                            <input type="radio" name="role" value="admin">
+                            Admin
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="form-btn">Sign Up</button>
+            </form>
+
+            <p class="switch-text">
+                Already have an account?
+                <a href="login.html">Login</a>
+            </p>
+        </div>
+    </section>
+
+</body>
+</html>
