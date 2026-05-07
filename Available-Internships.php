@@ -4,7 +4,6 @@ include('Config.php');
 
 $userType = $_SESSION['user_type'] ?? 'student';
 
-/* 📥 Get internships from DB */
 $query = "SELECT * FROM internships";
 $result = mysqli_query($con, $query);
 ?>
@@ -14,7 +13,7 @@ $result = mysqli_query($con, $query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internships</title>
+    <title>Internship Dashboard - Launchpad</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -25,15 +24,44 @@ $result = mysqli_query($con, $query);
 
     <ul class="company-dashboard-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="#">Profile</a></li>
-        <li><a href="logout.php">Logout</a></li>
+        <li><a href="student-profile.html">Profile</a></li>
+        <li><a href="login.html">Logout</a></li>
     </ul>
 </nav>
 
 <main class="company-dashboard-container">
 
 <section class="company-dashboard-hero">
-    <h1>Latest Internships</h1>
+    <div>
+        <h1>Latest Internships & Summer Training</h1>
+        <p>Internships help you gain practical skills, grow your professional network, and stand out to future employers.</p>
+    </div>
+</section>
+
+<section class="company-dashboard-stats">
+    <div class="dashboard-stat-card">
+        <h3>12</h3>
+        <p>Posted Internships</p>
+    </div>
+
+    <div class="dashboard-stat-card">
+        <h3>48</h3>
+        <p>Applicants</p>
+    </div>
+
+    <div class="dashboard-stat-card">
+        <h3>6</h3>
+        <p>Active Internships</p>
+    </div>
+</section>
+
+<section class="search-section">
+    <div class="search-box">
+        <form method="get">
+            <input type="text" name="keyword" placeholder="Search internships...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
 </section>
 
 <section class="company-dashboard-internships">
@@ -43,18 +71,20 @@ $result = mysqli_query($con, $query);
 
 <?php while($row = mysqli_fetch_assoc($result)) { 
 
-    /* 🔥 Decide link based on role */
-    if ($userType == 'company') {
-        $link = "edit-internship.php?id=" . $row['id'];
-    } else {
-        $link = "internship-details.php?id=" . $row['id'];
-    }
+    $link = ($userType == 'company') 
+        ? "edit-internship.php?id=" . $row['id'] 
+        : "internship-details.php?id=" . $row['id'];
 ?>
 
 <a href="<?php echo $link; ?>" class="dashboard-internship-card">
     <h3><?php echo htmlspecialchars($row['title']); ?></h3>
     <p><?php echo htmlspecialchars($row['field']); ?></p>
-    <span><?php echo htmlspecialchars($row['start_date']); ?></span>
+
+    <span>
+        <?php 
+        echo date("F Y", strtotime($row['start_date'])) . " - " . $row['duration']; 
+        ?>
+    </span>
 </a>
 
 <?php } ?>
