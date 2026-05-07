@@ -110,7 +110,7 @@ if ($stmt4) {
             <div class="company-dashboard-actions-grid">
                 
 
-                <a href="post-internship.html" class="dashboard-action-card">
+                <a href="company-post-internship.php" class="dashboard-action-card">
                     <h3>Post Internship</h3>
                     <p>Add a new internship opportunity</p>
                 </a>

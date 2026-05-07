@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div class="company-profile-buttons">
-            <a href="company-dashboard" class="profile-btn">Cancel</a>
+            <a href="company-dashboard.php" class="profile-btn">Cancel</a>
             <button type="submit" class="profile-btn">Post Internship</button>
         </div>
 

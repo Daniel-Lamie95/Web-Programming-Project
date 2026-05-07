@@ -75,8 +75,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="company-profile-logo">🚀 Launchpad</div>
 
     <ul class="company-profile-links">
-        <li><a href="homepage.html">Home</a></li>
-        <li><a href="Available-Internships.html">Dashboard</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="company-dashboard.php">Dashboard</a></li>
         <li><a href="logout.php">Logout</a></li>
     </ul>
 </nav>
@@ -131,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="company-profile-buttons">
-                <a href="Available-Internships.html" class="profile-btn">Cancel</a>
+                <a href="company-dashboard.php" class="profile-btn">Cancel</a>
                 <button type="submit" class="profile-btn">Save Changes</button>
             </div>
 
