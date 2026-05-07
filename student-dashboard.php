@@ -169,7 +169,6 @@ if ($stmt3) {
                 <?php if($isStudent): ?>
 
                 <div class="company-profile-buttons">
-                    <a href="edit-student-profile.php" class="profile-btn">Edit Profile</a>
                     <a href="student-profile.php" class="profile-btn">Back to Profile</a>
                     <a href="#" class="profile-btn">CV</a>
                 </div>
