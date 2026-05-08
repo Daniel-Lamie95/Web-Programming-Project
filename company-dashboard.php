@@ -115,7 +115,7 @@ if ($stmt4) {
                     <p>Add a new internship opportunity</p>
                 </a>
 
-                <a href="manage-internships.html" class="dashboard-action-card">
+                <a href="#recent-internships" class="dashboard-action-card">
                     <h3>Manage Internships</h3>
                     <p>View and edit posted internships</p>
                 </a>
@@ -127,7 +127,7 @@ if ($stmt4) {
             </div>
         </section>
 
-        <section class="company-dashboard-internships">
+        <section class="company-dashboard-internships" id="recent-internships">
             <h2>Recent Internships</h2>
 
             <div class="company-dashboard-internships-grid">

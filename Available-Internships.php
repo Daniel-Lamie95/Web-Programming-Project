@@ -14,6 +14,32 @@ if ($_SESSION['user_type'] !== 'student') {
 
 $query = "SELECT * FROM internships";
 $result = mysqli_query($con, $query);
+
+$postedCount = 0;
+$applicantsCount = 0;
+$activeCount = 0;
+
+$countQuery = 'SELECT COUNT(*) AS cnt FROM internships';
+$countResult = mysqli_query($con, $countQuery);
+if ($countResult) {
+    $countRow = mysqli_fetch_assoc($countResult);
+    $postedCount = isset($countRow['cnt']) ? (int) $countRow['cnt'] : 0;
+}
+/*
+$applicantsQuery = 'SELECT COUNT(*) AS cnt FROM application';
+$applicantsResult = mysqli_query($con, $applicantsQuery);
+if ($applicantsResult) {
+    $applicantsRow = mysqli_fetch_assoc($applicantsResult);
+    $applicantsCount = isset($applicantsRow['cnt']) ? (int) $applicantsRow['cnt'] : 0;
+}
+*/
+
+$activeQuery = 'SELECT COUNT(*) AS cnt FROM student_internships';
+$activeResult = mysqli_query($con, $activeQuery);
+if ($activeResult) {
+    $activeRow = mysqli_fetch_assoc($activeResult);
+    $activeCount = isset($activeRow['cnt']) ? (int) $activeRow['cnt'] : 0;
+}
 ?>
 
 <!DOCTYPE html>
@@ -48,17 +74,17 @@ $result = mysqli_query($con, $query);
 
 <section class="company-dashboard-stats">
 <div class="dashboard-stat-card">
-<h3>12</h3>
+<h3><?php echo $postedCount; ?></h3>
 <p>Posted Internships</p>
 </div>
 
 <div class="dashboard-stat-card">
-<h3>48</h3>
+<h3><?php echo $applicantsCount; ?></h3>
 <p>Applicants</p>
 </div>
 
 <div class="dashboard-stat-card">
-<h3>6</h3>
+<h3><?php echo $activeCount; ?></h3>
 <p>Active Internships</p>
 </div>
 </section>

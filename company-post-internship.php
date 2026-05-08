@@ -10,6 +10,18 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'company') {
 
 /* 📌 Get company id from session */
 $company_id = $_SESSION['user_id'];
+/* 📥 Get company information */
+$company_query = "SELECT * FROM Company WHERE ID = ?";
+$company_stmt = mysqli_prepare($con, $company_query);
+mysqli_stmt_bind_param($company_stmt, 'i', $company_id);
+mysqli_stmt_execute($company_stmt);
+$company_result = mysqli_stmt_get_result($company_stmt);
+$company = mysqli_fetch_assoc($company_result);
+
+if (!$company) {
+    header('Location: company-dashboard.php');
+    exit();
+}
 
 /* 📤 Handle form submission */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -73,9 +85,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="company-profile-left">
     <div class="company-profile-image">
-        <img src="images/main_logo.jpeg" alt="Company Logo">
+        <img src="<?php echo htmlspecialchars($company['Logo']); ?>" alt="Company Logo">
     </div>
-    <h2>Company</h2>
+    <h2><?php echo htmlspecialchars($company['Name']); ?></h2>
     <span>Internship Posting</span>
 </div>
 

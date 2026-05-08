@@ -4,7 +4,7 @@ include('Config.php');
 
 /* 🔒 Allow both students and companies */
 $isStudent = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'student';
-$isCompany = isset($_SESSION['CompanyID']);
+$isCompany = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'company';
 
 if (!$isStudent && !$isCompany) {
     header("Location: login.html");
@@ -28,10 +28,28 @@ if (!$data) {
     exit();
 }
 
+$error_message = null;
+
 /* 🔐 Check if company owns this internship */
 $isOwner = false;
 if ($isCompany && isset($data['company_id'])) {
-    $isOwner = ($data['company_id'] == $_SESSION['CompanyID']);
+    $isOwner = ($data['company_id'] == $_SESSION['user_id']);
+}
+
+/* 🗑️ Handle delete request */
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_internship'])) {
+    if ($isCompany && $isOwner) {
+        $delete_query = "DELETE FROM internships WHERE id = ? AND company_id = ?";
+        $delete_stmt = mysqli_prepare($con, $delete_query);
+        mysqli_stmt_bind_param($delete_stmt, 'ii', $id, $_SESSION['user_id']);
+        
+        if (mysqli_stmt_execute($delete_stmt)) {
+            header("Location: company-dashboard.php?deleted=1");
+            exit();
+        } else {
+            $error_message = "Error deleting internship. Please try again.";
+        }
+    }
 }
 ?>
 
@@ -59,21 +77,32 @@ if ($isCompany && isset($data['company_id'])) {
 <main class="company-profile-container">
 
 <section class="company-profile-hero">
-    <h1><?php echo htmlspecialchars($data['title']); ?></h1>
+    <h1>Intenship Details</h1>
     <p><?php echo $isStudent ? 'View internship details and apply' : 'View and manage internship details'; ?></p>
 </section>
+
+<?php if (isset($error_message)): ?>
+    <div style="background-color: #f8d7da; color: #721c24; padding: 12px; margin: 20px; border-radius: 4px; border: 1px solid #f5c6cb;">
+        ⚠️ <?php echo htmlspecialchars($error_message); ?>
+    </div>
+<?php endif; ?>
 
 <section class="company-profile-card">
 
     <div class="company-profile-left">
         <div class="company-profile-image">
-            <img src="images/<?php echo !empty($data['logo']) ? htmlspecialchars($data['logo']) : 'default.png'; ?>" alt="logo">
+            <img src="uploads/internships/<?php echo !empty($data['logo']) ? htmlspecialchars($data['logo']) : 'default.png'; ?>" alt="logo" onerror="this.src='images/default-internship.png'">
         </div>
         <h2><?php echo htmlspecialchars($data['title']); ?></h2>
     </div>
 
     <div class="company-profile-right">
         <h2>Internship Information</h2>
+
+        <div class="profile-row">
+            <span class="profile-label">Internship Name</span>
+            <span class="profile-value"><?php echo htmlspecialchars($data['title']); ?></span>
+        </div>
 
         <div class="profile-row">
             <span class="profile-label">Duration</span>
@@ -109,6 +138,9 @@ if ($isCompany && isset($data['company_id'])) {
                 <p id="uploadStatus"></p>
             <?php elseif ($isCompany && $isOwner): ?>
                 <a href="edit-internship-profile.php?id=<?php echo $id; ?>" class="profile-btn">Edit Internship</a>
+                <form method="POST" style="display: inline;">
+                    <button type="submit" name="delete_internship" class="profile-btn" style="background-color: #dc3545;" onclick="return confirm('Are you sure you want to delete this internship? This action cannot be undone.');">Delete Internship</button>
+                </form>
             <?php endif; ?>
 
             <a href="Available-Internships.php" class="profile-btn">Back</a>
