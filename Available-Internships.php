@@ -12,8 +12,19 @@ if ($_SESSION['user_type'] !== 'student') {
     exit();
 }
 
-$query = "SELECT * FROM internships";
-$result = mysqli_query($con, $query);
+$keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
+
+if ($keyword !== '') {
+    $searchTerm = '%' . $keyword . '%';
+    $query = "SELECT * FROM internships WHERE title LIKE ? OR field LIKE ? OR description LIKE ? OR location LIKE ? ORDER BY id DESC";
+    $stmt = mysqli_prepare($con, $query);
+    mysqli_stmt_bind_param($stmt, 'ssss', $searchTerm, $searchTerm, $searchTerm, $searchTerm);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+} else {
+    $query = "SELECT * FROM internships ORDER BY id DESC";
+    $result = mysqli_query($con, $query);
+}
 
 $postedCount = 0;
 $applicantsCount = 0;
@@ -92,7 +103,7 @@ if ($activeResult) {
 <section class="search-section">
 <div class="search-box">
 <form action="" method="get">
-<input type="text" name="keyword" placeholder="Search internships...">
+<input type="text" name="keyword" placeholder="Search internships..." value="<?php echo htmlspecialchars($keyword); ?>">
 <button type="submit">Search</button>
 </form>
 </div>
@@ -103,6 +114,7 @@ if ($activeResult) {
 
 <div class="company-dashboard-internships-grid">
 
+<?php if ($result && mysqli_num_rows($result) > 0) { ?>
 <?php while($row = mysqli_fetch_assoc($result)) { 
 
     $link = "internship-details.php?id=" . $row['id'];
@@ -114,6 +126,9 @@ if ($activeResult) {
     <span><?php echo htmlspecialchars($row['start_date']); ?></span>
 </a>
 
+<?php } ?>
+<?php } else { ?>
+<p>No internships found for this search.</p>
 <?php } ?>
 
 </div>
