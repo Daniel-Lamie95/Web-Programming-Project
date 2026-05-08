@@ -1,6 +1,8 @@
 <?php
 include("config.php");
 include("company-session.php");
+
+
 $postedInternships = [];
 $sql_active = 'SELECT i.id, i.title, i.field, i.start_date, i.duration FROM internships i WHERE i.company_id = ? ORDER BY i.id DESC';
 $stmt4 = mysqli_prepare($con, $sql_active);
@@ -15,6 +17,22 @@ if ($stmt4) {
     }
     mysqli_stmt_close($stmt4);
 }
+
+// Count how many students applied to this company's internships
+$totalApplicants = 0;
+$sql_applicants = 'SELECT COUNT(*) AS cnt FROM student_internships si JOIN internships i ON si.internship_id = i.id WHERE i.company_id = ?';
+$stmtAp = mysqli_prepare($con, $sql_applicants);
+if ($stmtAp) {
+    mysqli_stmt_bind_param($stmtAp, 'i', $companyID);
+    mysqli_stmt_execute($stmtAp);
+    $resAp = mysqli_stmt_get_result($stmtAp);
+    if ($resAp) {
+        $rowAp = mysqli_fetch_assoc($resAp);
+        $totalApplicants = isset($rowAp['cnt']) ? (int)$rowAp['cnt'] : 0;
+    }
+    mysqli_stmt_close($stmtAp);
+}
+?>
 ?>
 
 <!DOCTYPE html>
@@ -92,13 +110,8 @@ if ($stmt4) {
             </div>
 
             <div class="dashboard-stat-card">
-                <h3>48</h3>
+                <h3><?php echo $totalApplicants; ?></h3>
                 <p>Applicants</p>
-            </div>
-
-            <div class="dashboard-stat-card">
-                <h3>6</h3>
-                <p>Active Internships</p>
             </div>
 
         

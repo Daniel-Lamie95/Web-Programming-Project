@@ -180,11 +180,31 @@ if ($stmt3) {
                     <span class="dashboard-value"><?php echo htmlspecialchars($studentUniversity); ?></span>
                 </div>
                 <?php if($isStudent): ?>
+            </div>
+        </section>
 
-                <div class="company-profile-buttons">
-                    <a href="student-profile.php" class="profile-btn">Back to Profile</a>
-                    <a href="cv/cv-view.php" class="profile-btn">CV</a>
-                </div>
+            <section class="company-dashboard-actions">
+            <h2>Quick Actions</h2>
+
+            <div class="company-dashboard-actions-grid">
+                
+
+                <a href="student-profile.php" class="dashboard-action-card">
+                    <h3>Back to profile</h3>
+                    <p>Return Back to Profile</p>
+                </a>
+
+                
+                <a href="Available-internships.php" class="dashboard-action-card">
+                    <h3>Available Internships</h3>
+                    <p>Check all internships</p>
+                </a>
+                
+                <a href="cv/cv-view.php" class="dashboard-action-card">
+                    <h3>My CV</h3>
+                    <p>Open you Cv</p>
+                </a>
+
             </div>
         </section>
 
@@ -197,11 +217,6 @@ if ($stmt3) {
             <div class="dashboard-stat-card">
                 <h3><?php echo (int)$activeCount; ?></h3>
                 <p>Accepted Internships</p>
-            </div>
-
-            <div class="dashboard-stat-card">
-                <h3><a href="cv/cv-view.php" style="color:white;text-decoration:none;">📄</a></h3>
-                <p><a href="cv/cv-view.php" style="color:#fff4eb;text-decoration:none;">My CV</a></p>
             </div>
         </section>
 
