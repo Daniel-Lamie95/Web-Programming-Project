@@ -120,7 +120,7 @@ if ($stmt4) {
                     <p>View and edit posted internships</p>
                 </a>
 
-                <a href="view-applicants.html" class="dashboard-action-card">
+                <a href="view-applicants.php" class="dashboard-action-card">
                     <h3>View Applicants</h3>
                     <p>Check students applications</p>
                 </a>
