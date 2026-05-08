@@ -44,7 +44,7 @@ $studentMajor = isset($student['major']) ? $student['major'] : '';
 $studentPhotoPath = isset($student['profile_photo_path']) && $student['profile_photo_path'] !== '' ? $student['profile_photo_path'] : './images/Screenshot 2026-03-23 192924.png';
 
 $activeCount = 0;
-$sql_count = 'SELECT COUNT(*) AS cnt FROM student_internships WHERE student_id = ?';
+$sql_count = 'SELECT COUNT(*) AS cnt FROM student_internships WHERE student_id = ? AND status = "accepted"';
 $stmt2 = mysqli_prepare($con, $sql_count);
 if ($stmt2) {
     mysqli_stmt_bind_param($stmt2, 'i', $studentId);
@@ -58,7 +58,7 @@ if ($stmt2) {
 }
 
 $activeInternships = [];
-$sql_active = 'SELECT i.id, i.title, i.field, i.start_date, i.duration FROM student_internships s JOIN internships i ON s.internship_id = i.id WHERE s.student_id = ? ORDER BY s.id DESC';
+$sql_active = 'SELECT i.id, i.title, i.field, i.start_date, i.duration, s.status FROM student_internships s JOIN internships i ON s.internship_id = i.id WHERE s.student_id = ? ORDER BY s.id DESC';
 $stmt4 = mysqli_prepare($con, $sql_active);
 if ($stmt4) {
     mysqli_stmt_bind_param($stmt4, 'i', $studentId);
@@ -73,6 +73,18 @@ if ($stmt4) {
 }
 
 $appliedCount = 0;
+$sql_applied = 'SELECT COUNT(*) AS apcnt FROM student_internships WHERE student_id = ?';
+$stmtAp = mysqli_prepare($con, $sql_applied);
+if ($stmtAp) {
+    mysqli_stmt_bind_param($stmtAp, 'i', $studentId);
+    mysqli_stmt_execute($stmtAp);
+    $resAp = mysqli_stmt_get_result($stmtAp);
+    if ($resAp) {
+        $rowAp = mysqli_fetch_assoc($resAp);
+        $appliedCount = isset($rowAp['apcnt']) ? (int)$rowAp['apcnt'] : 0;
+    }
+    mysqli_stmt_close($stmtAp);
+}
 /*
 $sql_count = 'SELECT COUNT(*) AS apcnt FROM application WHERE student_id = ?';
 $stmt2 = mysqli_prepare($con, $sql_count);
@@ -122,6 +134,7 @@ if ($stmt3) {
         <ul class="company-dashboard-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="student-profile.php">Profile</a></li>
+            <li><a href="cv/cv-view.php">My CV</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>
@@ -170,7 +183,7 @@ if ($stmt3) {
 
                 <div class="company-profile-buttons">
                     <a href="student-profile.php" class="profile-btn">Back to Profile</a>
-                    <a href="#" class="profile-btn">CV</a>
+                    <a href="cv/cv-view.php" class="profile-btn">CV</a>
                 </div>
             </div>
         </section>
@@ -186,21 +199,30 @@ if ($stmt3) {
                 <p>Accepted Internships</p>
             </div>
 
-        
+            <div class="dashboard-stat-card">
+                <h3><a href="cv/cv-view.php" style="color:white;text-decoration:none;">📄</a></h3>
+                <p><a href="cv/cv-view.php" style="color:#fff4eb;text-decoration:none;">My CV</a></p>
+            </div>
         </section>
 
         <section class="company-dashboard-internships">
-            <h2>Accepted Internships</h2>
+            <h2>My Applications</h2>
 
             <div class="company-dashboard-internships-grid">
                 <?php if (empty($activeInternships)) { ?>
-                    <p>You have no accepted internships.</p>
+                    <p>You have no applications yet.</p>
                 <?php } else { ?>
-                    <?php foreach ($activeInternships as $act) { ?>
+                    <?php foreach ($activeInternships as $act) {
+                        $appSt = isset($act['status']) && $act['status'] !== '' ? $act['status'] : 'pending';
+                        if ($appSt === 'accepted') { $badgeBg = '#d4edda'; $badgeColor = '#155724'; }
+                        elseif ($appSt === 'rejected') { $badgeBg = '#f8d7da'; $badgeColor = '#721c24'; }
+                        else { $badgeBg = '#fff3cd'; $badgeColor = '#856404'; }
+                    ?>
                         <a href="internship-details.php?id=<?php echo (int)$act['id']; ?>" class="dashboard-internship-card">
                             <h3><?php echo htmlspecialchars($act['title']); ?></h3>
                             <p><?php echo htmlspecialchars($act['field']); ?></p>
                             <span><?php echo date("F Y", strtotime($act['start_date'])) . ' - ' . htmlspecialchars($act['duration']); ?></span>
+                            <span style="display:inline-block;margin-top:8px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:<?php echo $badgeBg; ?>;color:<?php echo $badgeColor; ?>;"><?php echo ucfirst(htmlspecialchars($appSt)); ?></span>
                         </a>
                     <?php } ?>
                 <?php } ?>
