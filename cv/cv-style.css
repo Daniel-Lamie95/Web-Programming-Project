@@ -1,0 +1,460 @@
+/* === CV FORM STYLES === */
+
+.cv-form-section {
+    background: white;
+    border-radius: 18px;
+    border: 1px solid #fff4eb;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    padding: 28px 30px;
+    margin-bottom: 22px;
+}
+
+.cv-form-section h2 {
+    font-size: 22px;
+    color: #1d1b5b;
+    margin-bottom: 18px;
+    border-bottom: 2px solid #f4dfd4;
+    padding-bottom: 10px;
+}
+
+.cv-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 12px;
+}
+
+.cv-form-row.full {
+    grid-template-columns: 1fr;
+}
+
+.cv-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.cv-form-group label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #433535;
+}
+
+.cv-form-group input,
+.cv-form-group textarea,
+.cv-form-group select {
+    padding: 10px 12px;
+    border: 1px solid #e0d6d0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.cv-form-group input:focus,
+.cv-form-group textarea:focus,
+.cv-form-group select:focus {
+    border-color: #4fc3f7;
+}
+
+.cv-form-group textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+.cv-entry {
+    background: #fff9f6;
+    border: 1px solid #f4dfd4;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 14px;
+    position: relative;
+}
+
+.cv-entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.cv-entry-header span {
+    font-weight: 600;
+    color: #1d1b5b;
+    font-size: 15px;
+}
+
+.cv-btn-add,
+.cv-btn-remove {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cv-btn-add {
+    background: linear-gradient(135deg, #1d1b5b, #4fc3f7);
+    color: white;
+    margin-top: 8px;
+}
+
+.cv-btn-add:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.cv-btn-remove {
+    background: #e74c3c;
+    color: white;
+    font-size: 12px;
+    padding: 5px 12px;
+}
+
+.cv-btn-remove:hover {
+    background: #c0392b;
+}
+
+.cv-btn-add-bullet {
+    border: none;
+    background: #eee;
+    color: #333;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: 0.2s;
+}
+
+.cv-btn-add-bullet:hover {
+    background: #ddd;
+}
+
+.cv-bullet-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.cv-bullet-row input {
+    flex: 1;
+    padding: 8px 10px;
+    border: 1px solid #e0d6d0;
+    border-radius: 6px;
+    font-size: 13px;
+    outline: none;
+}
+
+.cv-bullet-row input:focus {
+    border-color: #4fc3f7;
+}
+
+.cv-bullet-remove {
+    border: none;
+    background: transparent;
+    color: #e74c3c;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 2px 6px;
+    line-height: 1;
+}
+
+.cv-checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.cv-checkbox-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+}
+
+.cv-checkbox-row label {
+    font-size: 13px;
+    color: #555;
+}
+
+.cv-form-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.cv-form-submit {
+    display: inline-block;
+    text-decoration: none;
+    background: linear-gradient(135deg, #1d1b5b, #4fc3f7);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.cv-form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(79, 195, 247, 0.2);
+}
+
+.cv-msg-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    border: 1px solid #c3e6cb;
+}
+
+.cv-msg-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    border: 1px solid #f5c6cb;
+}
+
+.cv-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 18px;
+    border: 1px solid #fff4eb;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.cv-empty-state h2 {
+    color: #1d1b5b;
+    margin-bottom: 12px;
+    font-size: 24px;
+}
+
+.cv-empty-state p {
+    color: #6f6161;
+    margin-bottom: 22px;
+    font-size: 16px;
+}
+
+@media (max-width: 600px) {
+    .cv-form-row {
+        grid-template-columns: 1fr;
+    }
+    .cv-form-section {
+        padding: 18px 16px;
+    }
+    .cv-form-actions {
+        flex-direction: column;
+    }
+}
+
+/* === LATEX-STYLE CV DISPLAY === */
+
+.cv-document {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px 50px;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: #000;
+    line-height: 1.4;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.cv-doc-name {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+}
+
+.cv-doc-title {
+    text-align: center;
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 6px;
+}
+
+.cv-doc-contact {
+    text-align: center;
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 16px;
+    word-break: break-word;
+}
+
+.cv-doc-contact a {
+    color: #333;
+    text-decoration: none;
+}
+
+.cv-doc-contact .cv-sep {
+    margin: 0 6px;
+    color: #999;
+}
+
+.cv-doc-section {
+    margin-bottom: 14px;
+}
+
+.cv-doc-section-title {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 1.5px solid #000;
+    padding-bottom: 3px;
+    margin-bottom: 8px;
+}
+
+.cv-doc-entry {
+    margin-bottom: 10px;
+}
+
+.cv-doc-entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.cv-doc-entry-left {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.cv-doc-entry-right {
+    font-size: 12px;
+    color: #444;
+    text-align: right;
+}
+
+.cv-doc-entry-sub {
+    font-style: italic;
+    font-size: 12px;
+    color: #444;
+    margin-top: 1px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.cv-doc-entry-desc {
+    font-size: 12px;
+    color: #333;
+    margin-top: 2px;
+}
+
+.cv-doc-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 0 0;
+}
+
+.cv-doc-bullets li {
+    font-size: 12px;
+    padding-left: 16px;
+    position: relative;
+    margin-bottom: 2px;
+    line-height: 1.5;
+}
+
+.cv-doc-bullets li::before {
+    content: "\2022";
+    position: absolute;
+    left: 4px;
+    color: #000;
+}
+
+.cv-doc-skills-row {
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+
+.cv-doc-skills-cat {
+    font-weight: bold;
+}
+
+.cv-doc-summary {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #222;
+}
+
+.cv-doc-cert-row,
+.cv-doc-award-row,
+.cv-doc-lang-row {
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+
+.cv-doc-cert-row a {
+    color: #333;
+    text-decoration: underline;
+}
+
+.cv-view-actions {
+    max-width: 800px;
+    margin: 0 auto 20px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+/* === PRINT STYLES === */
+
+@media print {
+    body {
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .company-dashboard-navbar,
+    .company-profile-navbar,
+    nav,
+    .company-dashboard-hero,
+    .company-profile-hero,
+    .company-dashboard-container > section:not(:last-of-type),
+    .company-dashboard-top,
+    .company-dashboard-stats,
+    .company-dashboard-internships,
+    .cv-view-actions,
+    .cv-msg-success,
+    .cv-msg-error {
+        display: none !important;
+    }
+    .company-dashboard-container {
+        padding: 0 !important;
+    }
+    .cv-document {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 20px 30px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+    .cv-document a {
+        color: #000 !important;
+        text-decoration: underline !important;
+    }
+    @page {
+        margin: 0.5in;
+        size: A4;
+    }
+    .cv-doc-entry {
+        page-break-inside: avoid;
+    }
+}
+

@@ -120,6 +120,7 @@ mysqli_close($con);
 
                 <div class="company-profile-buttons">
                     <a href="edit-student-profile.php" class="profile-btn">Edit Profile</a>
+                    <a href="cv/cv-view.php" class="profile-btn">My CV</a>
                     <a href="student-dashboard.php" class="profile-btn">Back to Dashboard</a>
                 </div>
             </div>
