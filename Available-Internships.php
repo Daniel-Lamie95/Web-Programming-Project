@@ -68,7 +68,7 @@ if ($activeResult) {
 <div class="company-dashboard-logo">🚀 Launchpad</div>
 
 <ul class="company-dashboard-links">
-<li><a href="student-dashboard.php">Home</a></li>
+<li><a href="index.html">Home</a></li>
 <li><a href="student-profile.php">Profile</a></li>
 <li><a href="logout.php">Logout</a></li>
 </ul>

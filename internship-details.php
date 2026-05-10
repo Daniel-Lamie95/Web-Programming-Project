@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_internship']))
     <div class="company-profile-logo">🚀 Launchpad</div>
 
     <ul class="company-profile-links">
-        <li><a href="student-home.html">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="Available-Internships.php">Dashboard</a></li>
         <li><a href="logout.php">Logout</a></li>
     </ul>
