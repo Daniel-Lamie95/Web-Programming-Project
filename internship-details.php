@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_internship']))
 <main class="company-profile-container">
 
 <section class="company-profile-hero">
-    <h1>Intenship Details</h1>
+    <h1>Internship Details</h1>
     <p><?php echo $isStudent ? 'View internship details and apply' : 'View and manage internship details'; ?></p>
 </section>
 

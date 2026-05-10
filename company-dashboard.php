@@ -2,7 +2,6 @@
 include("config.php");
 include("company-session.php");
 
-
 $postedInternships = [];
 $sql_active = 'SELECT i.id, i.title, i.field, i.start_date, i.duration FROM internships i WHERE i.company_id = ? ORDER BY i.id DESC';
 $stmt4 = mysqli_prepare($con, $sql_active);
@@ -145,7 +144,7 @@ if ($stmtAp) {
 
             <div class="company-dashboard-internships-grid">
                 <?php if (empty($postedInternships)) { ?>
-                    <p>You have no accpostedepted internships.</p>
+                    <p>You have no posted internships.</p>
                 <?php } else { ?>
                     <?php foreach ($postedInternships as $act) { ?>
                         <a href="internship-details.php?id=<?php echo (int)$act['id']; ?>" class="dashboard-internship-card">
