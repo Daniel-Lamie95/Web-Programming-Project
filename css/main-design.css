@@ -13,7 +13,7 @@ body {
 .container {
     background-image: 
         linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 255, 0.4)),
-        url("wep project.jpg");
+        url("images/.wep.jpg");
 
     background-size: cover;
     background-position: center;
@@ -261,4 +261,223 @@ ul li a:hover {
 .card h3 {
     margin-bottom: 10px;
     color: #00bcd4;
+}
+
+/* 🔥 Font */
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
+/* 🔥 Hero */
+.content{
+    max-width: 650px;
+}
+
+.content h1{
+    font-size: 65px;
+    margin-bottom: 20px;
+    animation: fadeUp 1s ease;
+}
+
+.content p{
+    font-size: 20px;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    animation: fadeUp 1.5s ease;
+}
+
+/* 🔥 Buttons */
+.hero-buttons{
+    display: flex;
+    gap: 15px;
+}
+
+.second-btn{
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.second-btn:hover{
+    background: white;
+    color: #00bcd4;
+}
+
+/* 🔥 Navbar Animation */
+ul li a{
+    position: relative;
+}
+
+ul li a::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0%;
+    height: 2px;
+    background: #00bcd4;
+    transition: 0.3s;
+}
+
+ul li a:hover::after{
+    width: 100%;
+}
+
+/* 🔥 Slider Section */
+.slider-section{
+    padding: 80px 0;
+    background: #f5f7ff;
+    text-align: center;
+}
+
+.slider-section h2{
+    font-size: 40px;
+    margin-bottom: 40px;
+    color: #0a0f2c;
+}
+
+.slider{
+    overflow: hidden;
+    width: 90%;
+    margin: auto;
+}
+
+.slide-track{
+    display: flex;
+    width: calc(250px * 8);
+    animation: scroll 20s linear infinite;
+    gap: 20px;
+}
+
+.slide-track img{
+    width: 250px;
+    height: 170px;
+    border-radius: 15px;
+    object-fit: cover;
+    transition: 0.3s;
+}
+
+.slide-track img:hover{
+    transform: scale(1.05);
+}
+
+/* 🔥 Slider Animation */
+@keyframes scroll{
+
+    0%{
+        transform: translateX(0);
+    }
+
+    100%{
+        transform: translateX(calc(-250px * 4));
+    }
+}
+
+/* 🔥 Fade Animation */
+@keyframes fadeUp{
+
+    from{
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+/* 🔥 About Hero */
+
+.about-hero{
+
+    background-image:
+    linear-gradient(
+    to right,
+    rgba(0,0,0,0.7),
+    rgba(0,188,212,0.4)),
+    url("../images/about.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    height: 75vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+}
+
+/* 🔥 Overlay */
+
+.about-overlay{
+
+    color: white;
+    max-width: 700px;
+    padding: 20px;
+
+    animation: fadeUp 1s ease;
+}
+
+.about-overlay h1{
+
+    font-size: 65px;
+    margin-bottom: 20px;
+}
+
+.about-overlay p{
+
+    font-size: 22px;
+    line-height: 1.8;
+}
+
+/* 🔥 Statistics */
+
+.stats{
+
+    background: #0a0f2c;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+
+    padding: 70px 20px;
+
+    flex-wrap: wrap;
+}
+
+.stat-box{
+
+    text-align: center;
+}
+
+.stat-box h2{
+
+    font-size: 45px;
+    color: #00bcd4;
+}
+
+/* 🔥 Animation */
+
+@keyframes fadeUp{
+
+    from{
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
