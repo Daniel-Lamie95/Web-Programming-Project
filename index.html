@@ -3,78 +3,107 @@
 
 <head>
 
-<<<<<<< HEAD
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>LaunchPad</title>
 
-=======
-    <title>Launchpath</title>
->>>>>>> 33d7cd00542334d43c5182940e32eb7377be6eb6
     <link rel="stylesheet" href="css/main-design.css">
+
+    <style>
+        .slider-section .carousel {
+            position: relative;
+            width: min(1600px, 100vw);
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 12px 30px rgba(10, 15, 44, 0.2);
+        }
+
+        .slider-section .carousel-track {
+            display: flex;
+            flex-wrap: nowrap;
+            width: 100%;
+            transition: transform 0.5s ease;
+            will-change: transform;
+        }
+
+        .slider-section .carousel-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            max-width: 100%;
+            position: relative;
+        }
+
+        .slider-section .carousel-slide img {
+            width: 100%;
+            height: 560px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slider-section .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            line-height: 1;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.92);
+            color: #0a0f2c;
+            z-index: 3;
+        }
+
+        .slider-section .carousel-btn.prev { left: 12px; }
+        .slider-section .carousel-btn.next { right: 12px; }
+
+        .slider-section .carousel-dots {
+            position: absolute;
+            left: 50%;
+            bottom: 12px;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 3;
+        }
+
+        .slider-section .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.72);
+            cursor: pointer;
+        }
+
+        .slider-section .carousel-dot.active {
+            background: #00bcd4;
+        }
+
+        @media (max-width: 768px) {
+            .slider-section .carousel-slide img {
+                height: 320px;
+            }
+        }
+    </style>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 
-<footer class="footer">
-
-  <div class="footer-container">
-
-    <!-- 🔹 Logo + Description -->
-    <div class="footer-section">
-      <h2>🚀 Launchpath</h2>
-      <p>Your First Step Into the Professional World</p>
-    </div>
-
-    <!-- 🔹 Links -->
-    <div class="footer-section">
-      <h3>Links</h3>
-      <ul>
-        <li><a href="#">About Us</a></li>
-        <li><a href="./Available-Internships.php">Internships</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-      </ul>
-    </div>
-
-    <!-- 🔹 Services -->
-    <div class="footer-section">
-      <h3>Services</h3>
-      <ul>
-        <li><a href="#">For Students</a></li>
-        <li><a href="#">For Companies</a></li>
-        <li><a href="#">Post Internship</a></li>
-      </ul>
-    </div>
-
-    <!-- 🔹 Social -->
-    <div class="footer-section">
-      <h3>Follow Us</h3>
-      <div class="social">
-        <a href="#">F</a>
-        <a href="#">T</a>
-        <a href="#">L</a>
-        <a href="#">Y</a>
-      </div>
-    </div>
-
-  </div>
-
-  <p class="copyright">© 2026 LaunchPad | All Rights Reserved</p>
-
-</footer>
-
 <body>
 
     <!-- 🔥 Home Container -->
     <div class="container">
 
-    <!-- 🔹 Navbar -->
-    <header>
-        <a href="#" class="logo">🚀 Launchpath</a>
+        <!-- 🔹 Navbar -->
+        <header>
 
             <a href="#" class="logo">🚀 LaunchPad</a>
 
@@ -106,10 +135,6 @@
                     Login
                 </a>
 
-                <a href="./company-register.html" class="second-btn">
-                    Register
-                </a>
-
             </div>
 
         </div>
@@ -121,23 +146,30 @@
 
         <h2>Explore Opportunities</h2>
 
-        <div class="slider">
+        <div class="carousel" aria-label="Explore opportunities carousel">
+            <button class="carousel-btn prev" type="button" aria-label="Previous slide">&#10094;</button>
 
-            <div class="slide-track">
-
-                
-                <img src="images/student.png" alt="">
-                <img src="images/company.png" alt="">
-                <img src="images/internship.png" alt="">
-                <img src="images/career.png" alt="">
-
-                
-                <img src="images/student.png" alt="">
-                <img src="images/company.png" alt="">
-                <img src="images/internship.png" alt="">
-                <img src="images/career.png" alt="">
-
+            <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-slide">
+                    <img src="images/student.png" alt="Students searching for internships">
+                    <div class="carousel-caption">Students Discover Internships</div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="images/company.png" alt="Companies offering opportunities">
+                    <div class="carousel-caption">Companies Connect With Talent</div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="images/internship.png" alt="Internship opportunities">
+                    <div class="carousel-caption">Find the Right Internship</div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="images/career.png" alt="Career growth">
+                    <div class="carousel-caption">Build Your Career Path</div>
+                </div>
             </div>
+
+            <button class="carousel-btn next" type="button" aria-label="Next slide">&#10095;</button>
+            <div class="carousel-dots" id="carouselDots" aria-label="Carousel indicators"></div>
 
         </div>
 
@@ -165,7 +197,7 @@
                 <h3>Quick Links</h3>
 
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="./About_Us_Page.html">About Us</a></li>
                     <li><a href="./Contact_Page.html">Contact Us</a></li>
                 </ul>
@@ -178,9 +210,9 @@
                 <h3>Services</h3>
 
                 <ul>
-                    <li><a href="#">Internships</a></li>
-                    <li><a href="#">Companies</a></li>
-                    <li><a href="#">Career Support</a></li>
+                    <li>Internships</li>
+                    <li>Companies</li>
+                    <li>Career Support</li>
                 </ul>
 
             </div>
@@ -207,3 +239,95 @@
 
     </footer>
 
+    <script>
+        (function () {
+            const track = document.getElementById('carouselTrack');
+            const dotsWrap = document.getElementById('carouselDots');
+            const prevBtn = document.querySelector('.carousel-btn.prev');
+            const nextBtn = document.querySelector('.carousel-btn.next');
+
+            if (!track || !dotsWrap || !prevBtn || !nextBtn) return;
+
+            const slides = Array.from(track.children);
+            if (slides.length === 0) return;
+
+            let index = 0;
+            let timerId = null;
+
+            slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                dot.addEventListener('click', function () {
+                    goTo(i);
+                    restartAuto();
+                });
+                dotsWrap.appendChild(dot);
+            });
+
+            const dots = Array.from(dotsWrap.children);
+
+            function update() {
+                track.style.display = 'flex';
+                track.style.flexWrap = 'nowrap';
+                slides.forEach((slide) => {
+                    slide.style.flex = '0 0 100%';
+                    slide.style.maxWidth = '100%';
+                });
+                track.style.transform = 'translateX(-' + (index * 100) + '%)';
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+
+            function goTo(i) {
+                index = (i + slides.length) % slides.length;
+                update();
+            }
+
+            function next() {
+                goTo(index + 1);
+            }
+
+            function prev() {
+                goTo(index - 1);
+            }
+
+            function startAuto() {
+                timerId = setInterval(next, 3500);
+            }
+
+            function stopAuto() {
+                if (timerId) {
+                    clearInterval(timerId);
+                    timerId = null;
+                }
+            }
+
+            function restartAuto() {
+                stopAuto();
+                startAuto();
+            }
+
+            prevBtn.addEventListener('click', function () {
+                prev();
+                restartAuto();
+            });
+
+            nextBtn.addEventListener('click', function () {
+                next();
+                restartAuto();
+            });
+
+            track.addEventListener('mouseenter', stopAuto);
+            track.addEventListener('mouseleave', startAuto);
+
+            update();
+            startAuto();
+        })();
+    </script>
+
+</body>
+
+</html>

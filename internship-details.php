@@ -133,9 +133,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_internship']))
 
         <div class="company-profile-buttons">
             <?php if ($isStudent): ?>
-                <label for="cvUpload" class="profile-btn">Apply (Upload CV)</label>
-                <input type="file" id="cvUpload" hidden>
-                <p id="uploadStatus"></p>
+                <?php if (isset($_GET['success']) && $_GET['success'] == '1') { ?>
+                    <p style="width:100%;margin:0 0 10px 0;color:#155724;background:#d4edda;border:1px solid #c3e6cb;padding:10px 12px;border-radius:8px;">Application submitted successfully.</p>
+                <?php } elseif (isset($_GET['error']) && $_GET['error'] === 'already') { ?>
+                    <p style="width:100%;margin:0 0 10px 0;color:#856404;background:#fff3cd;border:1px solid #ffeeba;padding:10px 12px;border-radius:8px;">You already applied to this internship.</p>
+                <?php } elseif (isset($_GET['error']) && $_GET['error'] === 'cv_required') { ?>
+                    <p style="width:100%;margin:0 0 10px 0;color:#721c24;background:#f8d7da;border:1px solid #f5c6cb;padding:10px 12px;border-radius:8px;">Please create your CV first from the CV builder before applying.</p>
+                <?php } elseif (isset($_GET['error']) && $_GET['error'] === 'db') { ?>
+                    <p style="width:100%;margin:0 0 10px 0;color:#721c24;background:#f8d7da;border:1px solid #f5c6cb;padding:10px 12px;border-radius:8px;">Could not submit your application. Please try again.</p>
+                <?php } ?>
+
+                <form method="POST" action="apply.php" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <input type="hidden" name="internship_id" value="<?php echo (int)$id; ?>">
+                    <button type="submit" class="profile-btn" style="border:none;cursor:pointer;">Apply</button>
+                </form>
             <?php elseif ($isCompany && $isOwner): ?>
                 <a href="edit-internship-profile.php?id=<?php echo $id; ?>" class="profile-btn">Edit Internship</a>
                 <form method="POST" style="display: inline;">
@@ -151,27 +162,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_internship']))
 </section>
 
 </main>
-
-<!-- ✅ JS for CV validation (only for students) -->
-<?php if ($isStudent): ?>
-<script>
-const fileInput = document.getElementById("cvUpload");
-const statusText = document.getElementById("uploadStatus");
-
-fileInput.addEventListener("change", function () {
-    const file = fileInput.files[0];
-
-    if (!file) return;
-
-    if (file.size > 2 * 1024 * 1024) {
-        statusText.innerText = "❌ File too large (max 2MB)";
-        return;
-    }
-
-    statusText.innerText = "✅ Uploaded: " + file.name;
-});
-</script>
-<?php endif; ?>
 
 </body>
 </html>

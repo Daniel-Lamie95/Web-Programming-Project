@@ -13,11 +13,7 @@ body {
 .container {
     background-image: 
         linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 255, 0.4)),
-<<<<<<< HEAD
         url("images/.wep.jpg");
-=======
-        url("../images/wep project.jpg");
->>>>>>> 33d7cd00542334d43c5182940e32eb7377be6eb6
 
     background-size: cover;
     background-position: center;
@@ -344,40 +340,103 @@ ul li a:hover::after{
     color: #0a0f2c;
 }
 
-.slider{
-    overflow: hidden;
-    width: 90%;
+.carousel {
+    position: relative;
+    width: min(960px, 92%);
     margin: auto;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(10, 15, 44, 0.2);
+    background: #ffffff;
 }
 
-.slide-track{
+.carousel-track {
     display: flex;
-    width: calc(250px * 8);
-    animation: scroll 20s linear infinite;
-    gap: 20px;
+    transition: transform 0.5s ease;
 }
 
-.slide-track img{
-    width: 250px;
-    height: 170px;
-    border-radius: 15px;
+.carousel-slide {
+    min-width: 100%;
+    position: relative;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 300px;
     object-fit: cover;
-    transition: 0.3s;
+    display: block;
 }
 
-.slide-track img:hover{
-    transform: scale(1.05);
+.carousel-caption {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    color: white;
+    background: rgba(10, 15, 44, 0.72);
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
 }
 
-/* 🔥 Slider Animation */
-@keyframes scroll{
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 22px;
+    background: rgba(255, 255, 255, 0.88);
+    color: #0a0f2c;
+    z-index: 2;
+}
 
-    0%{
-        transform: translateX(0);
+.carousel-btn:hover {
+    background: #00bcd4;
+    color: white;
+}
+
+.carousel-btn.prev {
+    left: 12px;
+}
+
+.carousel-btn.next {
+    right: 12px;
+}
+
+.carousel-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.68);
+    cursor: pointer;
+}
+
+.carousel-dot.active {
+    background: #00bcd4;
+}
+
+@media (max-width: 768px) {
+    .carousel-slide img {
+        height: 190px;
     }
 
-    100%{
-        transform: translateX(calc(-250px * 4));
+    .slider-section h2 {
+        font-size: 30px;
     }
 }
 
