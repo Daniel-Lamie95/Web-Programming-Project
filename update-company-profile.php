@@ -3,7 +3,12 @@ include("company-session.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $companyID = $_SESSION['CompanyID'];
+    $companyID = isset($_SESSION['user_id']) ? (int) $_SESSION['user_id'] : 0;
+
+    if ($companyID <= 0) {
+        header("Location: login.html?error=invalid_session");
+        exit();
+    }
 
     $name = trim($_POST['companyName']);
     $email = trim($_POST['companyEmail']);
@@ -40,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    $logoPath = $company['Logo'];
+    $logoPath = isset($company['Logo']) ? $company['Logo'] : '';
 
     if (isset($_FILES['logo']) && $_FILES['logo']['error'] == 0) {
 

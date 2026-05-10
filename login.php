@@ -51,7 +51,7 @@ if ($userType === 'student') {
 }
 
 if ($userType === 'company') {
-	$sql = 'SELECT * FROM Company WHERE email = ? AND password = ? LIMIT 1';
+	$sql = 'SELECT * FROM Company WHERE Email = ? AND Password = ? LIMIT 1';
 	$stmt = mysqli_prepare($con, $sql);
 
 	if (!$stmt) {
@@ -65,14 +65,14 @@ if ($userType === 'company') {
 
 	if ($result && mysqli_num_rows($result) === 1) {
 		$company = mysqli_fetch_assoc($result);
-		$_SESSION['user_id'] = isset($company['id']) ? $company['id'] : null;
-		$_SESSION['user_name'] = isset($company['name']) ? $company['name'] : '';
+		$_SESSION['user_id'] = isset($company['ID']) ? $company['ID'] : null;
+		$_SESSION['user_name'] = isset($company['Name']) ? $company['Name'] : '';
 		$_SESSION['user_type'] = 'company';
 
 		mysqli_stmt_close($stmt);
 		mysqli_close($con);
 
-		header('Location: company-dashboard.html');
+		header('Location: company-dashboard.php');
 		exit();
 	}
 

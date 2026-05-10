@@ -13,7 +13,11 @@ body {
 .container {
     background-image: 
         linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 255, 0.4)),
+<<<<<<< HEAD
         url("images/.wep.jpg");
+=======
+        url("../images/wep project.jpg");
+>>>>>>> 33d7cd00542334d43c5182940e32eb7377be6eb6
 
     background-size: cover;
     background-position: center;

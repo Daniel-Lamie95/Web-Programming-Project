@@ -6,7 +6,7 @@ if(!isset($_SESSION['user_type'])  || $_SESSION['user_type'] !== 'student'){
     header('Location: login.html');
     exit();
 }
-
+$isStudent = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'student';
 $student = null;
 $studentId = isset($_SESSION['user_id']) ? (int) $_SESSION['user_id'] : 0;
 
@@ -43,7 +43,49 @@ $studentUniversity = isset($student['university']) ? $student['university'] : ''
 $studentMajor = isset($student['major']) ? $student['major'] : '';
 $studentPhotoPath = isset($student['profile_photo_path']) && $student['profile_photo_path'] !== '' ? $student['profile_photo_path'] : './images/Screenshot 2026-03-23 192924.png';
 
-mysqli_close($con);
+$activeCount = 0;
+$sql_count = 'SELECT COUNT(*) AS cnt FROM student_internships WHERE student_id = ? AND status = "accepted"';
+$stmt2 = mysqli_prepare($con, $sql_count);
+if ($stmt2) {
+    mysqli_stmt_bind_param($stmt2, 'i', $studentId);
+    mysqli_stmt_execute($stmt2);
+    $res2 = mysqli_stmt_get_result($stmt2);
+    if ($res2) {
+        //['cnt' -> 3]
+        $row2 = mysqli_fetch_assoc($res2);
+        $activeCount = isset($row2['cnt']) ? (int)$row2['cnt'] : 0;
+    }
+    mysqli_stmt_close($stmt2);
+}
+
+$activeInternships = [];
+$sql_active = 'SELECT i.id, i.title, i.field, i.start_date, i.duration, s.status FROM student_internships s JOIN internships i ON s.internship_id = i.id WHERE s.student_id = ? ORDER BY s.id DESC';
+$stmt4 = mysqli_prepare($con, $sql_active);
+if ($stmt4) {
+    mysqli_stmt_bind_param($stmt4, 'i', $studentId);
+    mysqli_stmt_execute($stmt4);
+    $res4 = mysqli_stmt_get_result($stmt4);
+    if ($res4) {
+        while ($r = mysqli_fetch_assoc($res4)) {
+            $activeInternships[] = $r;
+        }
+    }
+    mysqli_stmt_close($stmt4);
+}
+
+$appliedCount = 0;
+$sql_applied = 'SELECT COUNT(*) AS apcnt FROM student_internships WHERE student_id = ? AND status IN ("pending", "rejected")';
+$stmtAp = mysqli_prepare($con, $sql_applied);
+if ($stmtAp) {
+    mysqli_stmt_bind_param($stmtAp, 'i', $studentId);
+    mysqli_stmt_execute($stmtAp);
+    $resAp = mysqli_stmt_get_result($stmtAp);
+    if ($resAp) {
+        $rowAp = mysqli_fetch_assoc($resAp);
+        $appliedCount = isset($rowAp['apcnt']) ? (int)$rowAp['apcnt'] : 0;
+    }
+    mysqli_stmt_close($stmtAp);
+}
 
 ?>
 <!DOCTYPE html>
@@ -63,6 +105,7 @@ mysqli_close($con);
         <ul class="company-dashboard-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="student-profile.php">Profile</a></li>
+            <li><a href="cv/cv-view.php">My CV</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>
@@ -94,7 +137,7 @@ mysqli_close($con);
                 </div>
 
                 <div class="dashboard-info-row">
-                    <span class="dashboard-label">Field</span>
+                    <span class="dashboard-label">Major</span>
                     <span class="dashboard-value"><?php echo htmlspecialchars($studentMajor); ?></span>
                 </div>
 
@@ -107,49 +150,100 @@ mysqli_close($con);
                     <span class="dashboard-label">University</span>
                     <span class="dashboard-value"><?php echo htmlspecialchars($studentUniversity); ?></span>
                 </div>
+                <?php if($isStudent): ?>
+            </div>
+        </section>
+
+            <section class="company-dashboard-actions">
+            <h2>Quick Actions</h2>
+
+            <div class="company-dashboard-actions-grid">
+                
+
+                <a href="student-profile.php" class="dashboard-action-card">
+                    <h3>Back to profile</h3>
+                    <p>Return Back to Profile</p>
+                </a>
+
+                
+                <a href="Available-internships.php" class="dashboard-action-card">
+                    <h3>Available Internships</h3>
+                    <p>Check all internships</p>
+                </a>
+                
+                <a href="cv/cv-view.php" class="dashboard-action-card">
+                    <h3>My CV</h3>
+                    <p>Open you Cv</p>
+                </a>
+
             </div>
         </section>
 
         <section class="company-dashboard-stats">
             <div class="dashboard-stat-card">
-                <h3>3</h3>
+                <h3><?php echo (int) $appliedCount?></h3>
                 <p>Applied Internships</p>
             </div>
 
             <div class="dashboard-stat-card">
-                <h3>2</h3>
-                <p>Active Internships</p>
+                <h3><?php echo (int)$activeCount; ?></h3>
+                <p>Accepted Internships</p>
             </div>
-
-        
         </section>
 
+        <section class="company-dashboard-internships">
+            <h2>My Internships</h2>
+
+            <div class="company-dashboard-internships-grid">
+                <?php if (empty($activeInternships)) { ?>
+                    <p>You have no applications yet.</p>
+                <?php } else { ?>
+                    <?php foreach ($activeInternships as $act) {
+                        $appSt = isset($act['status']) && $act['status'] !== '' ? $act['status'] : 'pending';
+                        if ($appSt === 'accepted') { $badgeBg = '#d4edda'; $badgeColor = '#155724'; }
+                        elseif ($appSt === 'rejected') { $badgeBg = '#f8d7da'; $badgeColor = '#721c24'; }
+                        else { $badgeBg = '#fff3cd'; $badgeColor = '#856404'; }
+                    ?>
+                        <a href="internship-details.php?id=<?php echo (int)$act['id']; ?>" class="dashboard-internship-card">
+                            <h3><?php echo htmlspecialchars($act['title']); ?></h3>
+                            <p><?php echo htmlspecialchars($act['field']); ?></p>
+                            <span><?php echo date("F Y", strtotime($act['start_date'])) . ' - ' . htmlspecialchars($act['duration']); ?></span>
+                            <span style="display:inline-block;margin-top:8px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:<?php echo $badgeBg; ?>;color:<?php echo $badgeColor; ?>;"><?php echo ucfirst(htmlspecialchars($appSt)); ?></span>
+                        </a>
+                    <?php } ?>
+                <?php } ?>
+            </div>
+        </section>
+<!--
         <section class="company-dashboard-internships">
             <h2>Applied Internships</h2>
 
             <div class="company-dashboard-internships-grid">
-                <div class="dashboard-internship-card">
-                    <h3>Frontend Internship</h3>
-                    <p>Web Development</p>
-                    <span>June 2026 - August 2026</span>
-                </div>
-
-                <div class="dashboard-internship-card">
-                    <h3>Backend Internship</h3>
-                    <p>Software Engineering</p>
-                    <span>July 2026 - September 2026</span>
-                </div>
-
-                <div class="dashboard-internship-card">
-                    <h3>UI/UX Internship</h3>
-                    <p>Design</p>
-                    <span>August 2026 - October 2026</span>
-                </div>
+                <?php if (empty($appliedInternships)) { ?>
+                    <p>You haven't applied to any internships yet.</p>
+                <?php } else { ?>
+                    <?php foreach ($appliedInternships as $app) { ?>
+                        <a href="internship-details.php?id=<?php echo (int)$app['id']; ?>" class="dashboard-internship-card">
+                            <h3><?php echo htmlspecialchars($app['title']); ?></h3>
+                            <p><?php echo htmlspecialchars($app['field']); ?></p>
+                            <span><?php echo date("F Y", strtotime($app['start_date'])) . ' - ' . htmlspecialchars($app['duration']); ?></span>
+                        </a>
+                    <?php } ?>
+                <?php } ?>
             </div>
         </section>
+-->
+        <?php endif; ?>
 
     </main>
 
     <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<?php
+// Close DB connection after rendering
+if (isset($con) && is_resource($con)) {
+    mysqli_close($con);
+}
+?>

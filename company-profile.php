@@ -1,5 +1,6 @@
 <?php
-include("comany-session.php");
+include("Config.php");
+include("company-session.php");
 ?>
 
 <!DOCTYPE html>

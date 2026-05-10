@@ -13,8 +13,8 @@
 
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="About Us Page.html">About Us</a></li>
+            <li><a href="Contact Page.html">Contact</a></li>
         </ul>
     </nav>
 
@@ -29,7 +29,12 @@
         <div class="form-box company-form-box">
             <h2>Company Register</h2>
 
+            <div id="error-message" style="display: none; color: #d32f2f; background-color: #ffebee; padding: 10px; margin-bottom: 15px; border-radius: 4px;"></div>
+
             <form action="company-register.php" method="post" enctype="multipart/form-data">
+                <input type="text" name="companyName" placeholder="Company Name" required>
+                <input type="email" name="email" placeholder="Company Email" required>
+                <input type="password" name="password" placeholder="Password" required>
                 <input type="text" name="field" placeholder="Field / Industry" required>
                  <input type="text" name="location" placeholder="Location" required>
                 <input type="text" name="phone" placeholder="Phone Number" required>
@@ -43,6 +48,29 @@
             </form>
         </div>
     </section>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const errorDiv = document.getElementById('error-message');
+        
+        if (params.has('error')) {
+            errorDiv.style.display = 'block';
+            const errorType = params.get('error');
+            const errorMsg = params.get('msg');
+            
+            const errorMessages = {
+                'empty': 'Please fill in all required fields',
+                'email': 'Please enter a valid email address',
+                'password': 'Password must be at least 8 characters long',
+                'phone': 'Please enter a valid phone number (8-20 digits)',
+                'website': 'Please enter a valid website URL',
+                'email_exists': 'This email is already registered',
+                'database': 'Database error: ' + (errorMsg || 'Unable to save company data')
+            };
+            
+            errorDiv.textContent = errorMessages[errorType] || 'An error occurred';
+        }
+    </script>
 
 </body>
 </html>

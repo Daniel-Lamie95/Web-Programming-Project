@@ -2,6 +2,15 @@
 session_start();
 include('Config.php');
 
+/* 🔒 Allow both students and companies */
+$isStudent = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'student';
+$isCompany = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'company';
+
+if (!$isStudent && !$isCompany) {
+    header("Location: login.html");
+    exit();
+}
+
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
 if ($id <= 0) {
@@ -17,6 +26,30 @@ $data = mysqli_fetch_assoc($result);
 if (!$data) {
     echo "Internship not found";
     exit();
+}
+
+$error_message = null;
+
+/* 🔐 Check if company owns this internship */
+$isOwner = false;
+if ($isCompany && isset($data['company_id'])) {
+    $isOwner = ($data['company_id'] == $_SESSION['user_id']);
+}
+
+/* 🗑️ Handle delete request */
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_internship'])) {
+    if ($isCompany && $isOwner) {
+        $delete_query = "DELETE FROM internships WHERE id = ? AND company_id = ?";
+        $delete_stmt = mysqli_prepare($con, $delete_query);
+        mysqli_stmt_bind_param($delete_stmt, 'ii', $id, $_SESSION['user_id']);
+        
+        if (mysqli_stmt_execute($delete_stmt)) {
+            header("Location: company-dashboard.php?deleted=1");
+            exit();
+        } else {
+            $error_message = "Error deleting internship. Please try again.";
+        }
+    }
 }
 ?>
 
@@ -35,7 +68,7 @@ if (!$data) {
     <div class="company-profile-logo">🚀 Launchpad</div>
 
     <ul class="company-profile-links">
-        <li><a href="student-home.html">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="Available-Internships.php">Dashboard</a></li>
         <li><a href="logout.php">Logout</a></li>
     </ul>
@@ -44,21 +77,32 @@ if (!$data) {
 <main class="company-profile-container">
 
 <section class="company-profile-hero">
-    <h1><?php echo htmlspecialchars($data['title']); ?></h1>
-    <p>View internship details and apply</p>
+    <h1>Internship Details</h1>
+    <p><?php echo $isStudent ? 'View internship details and apply' : 'View and manage internship details'; ?></p>
 </section>
+
+<?php if (isset($error_message)): ?>
+    <div style="background-color: #f8d7da; color: #721c24; padding: 12px; margin: 20px; border-radius: 4px; border: 1px solid #f5c6cb;">
+        ⚠️ <?php echo htmlspecialchars($error_message); ?>
+    </div>
+<?php endif; ?>
 
 <section class="company-profile-card">
 
     <div class="company-profile-left">
         <div class="company-profile-image">
-            <img src="images/<?php echo htmlspecialchars($data['logo']); ?>" alt="logo">
+            <img src="uploads/internships/<?php echo !empty($data['logo']) ? htmlspecialchars($data['logo']) : 'default.png'; ?>" alt="logo" onerror="this.src='images/default-internship.png'">
         </div>
         <h2><?php echo htmlspecialchars($data['title']); ?></h2>
     </div>
 
     <div class="company-profile-right">
         <h2>Internship Information</h2>
+
+        <div class="profile-row">
+            <span class="profile-label">Internship Name</span>
+            <span class="profile-value"><?php echo htmlspecialchars($data['title']); ?></span>
+        </div>
 
         <div class="profile-row">
             <span class="profile-label">Duration</span>
@@ -72,7 +116,9 @@ if (!$data) {
 
         <div class="profile-row">
             <span class="profile-label">Start Date</span>
-            <span class="profile-value"><?php echo htmlspecialchars($data['start_date']); ?></span>
+            <span class="profile-value">
+                <?php echo date("d F Y", strtotime($data['start_date'])); ?>
+            </span>
         </div>
 
         <div class="profile-row">
@@ -81,14 +127,21 @@ if (!$data) {
         </div>
 
         <div class="profile-row">
-            <span class="profile-label">Field</span>
+            <span class="profile-label">Field / Industry</span>
             <span class="profile-value"><?php echo htmlspecialchars($data['field']); ?></span>
         </div>
 
         <div class="company-profile-buttons">
-            <label for="cvUpload" class="profile-btn">Apply (Upload CV)</label>
-            <input type="file" id="cvUpload" hidden>
-            <p id="uploadStatus"></p>
+            <?php if ($isStudent): ?>
+                <label for="cvUpload" class="profile-btn">Apply (Upload CV)</label>
+                <input type="file" id="cvUpload" hidden>
+                <p id="uploadStatus"></p>
+            <?php elseif ($isCompany && $isOwner): ?>
+                <a href="edit-internship-profile.php?id=<?php echo $id; ?>" class="profile-btn">Edit Internship</a>
+                <form method="POST" style="display: inline;">
+                    <button type="submit" name="delete_internship" class="profile-btn" style="background-color: #dc3545;" onclick="return confirm('Are you sure you want to delete this internship? This action cannot be undone.');">Delete Internship</button>
+                </form>
+            <?php endif; ?>
 
             <a href="Available-Internships.php" class="profile-btn">Back</a>
         </div>
@@ -99,7 +152,8 @@ if (!$data) {
 
 </main>
 
-<!-- ✅ JS for CV validation -->
+<!-- ✅ JS for CV validation (only for students) -->
+<?php if ($isStudent): ?>
 <script>
 const fileInput = document.getElementById("cvUpload");
 const statusText = document.getElementById("uploadStatus");
@@ -117,6 +171,7 @@ fileInput.addEventListener("change", function () {
     statusText.innerText = "✅ Uploaded: " + file.name;
 });
 </script>
+<?php endif; ?>
 
 </body>
 </html>

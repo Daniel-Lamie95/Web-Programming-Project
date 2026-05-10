@@ -1,7 +1,38 @@
 <?php
-include("comany-session.php");
-?>
+include("config.php");
+include("company-session.php");
 
+$postedInternships = [];
+$sql_active = 'SELECT i.id, i.title, i.field, i.start_date, i.duration FROM internships i WHERE i.company_id = ? ORDER BY i.id DESC';
+$stmt4 = mysqli_prepare($con, $sql_active);
+if ($stmt4) {
+    mysqli_stmt_bind_param($stmt4, 'i', $companyID);
+    mysqli_stmt_execute($stmt4);
+    $res4 = mysqli_stmt_get_result($stmt4);
+    if ($res4) {
+        while ($r = mysqli_fetch_assoc($res4)) {
+            $postedInternships[] = $r;
+        }
+    }
+    mysqli_stmt_close($stmt4);
+}
+
+// Count how many students applied to this company's internships
+$totalApplicants = 0;
+$sql_applicants = 'SELECT COUNT(*) AS cnt FROM student_internships si JOIN internships i ON si.internship_id = i.id WHERE i.company_id = ?';
+$stmtAp = mysqli_prepare($con, $sql_applicants);
+if ($stmtAp) {
+    mysqli_stmt_bind_param($stmtAp, 'i', $companyID);
+    mysqli_stmt_execute($stmtAp);
+    $resAp = mysqli_stmt_get_result($stmtAp);
+    if ($resAp) {
+        $rowAp = mysqli_fetch_assoc($resAp);
+        $totalApplicants = isset($rowAp['cnt']) ? (int)$rowAp['cnt'] : 0;
+    }
+    mysqli_stmt_close($stmtAp);
+}
+?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +66,7 @@ include("comany-session.php");
         <section class="company-dashboard-top">
             <div class="company-dashboard-profile-card">
                 <div class="company-dashboard-avatar">
-                    <img src= "<?php echo $company['Logo']; ?>  alt="Company Logo">
+                    <img src="<?php echo $company['Logo']; ?>" alt="Company Logo">
                 </div>
                 <h3><?php echo $company['Name']; ?></h3>
                 <span><?php echo $company['Field']; ?></span>
@@ -73,18 +104,13 @@ include("comany-session.php");
 
         <section class="company-dashboard-stats">
             <div class="dashboard-stat-card">
-                <h3>12</h3>
+                <h3><?php echo count($postedInternships); ?></h3>
                 <p>Posted Internships</p>
             </div>
 
             <div class="dashboard-stat-card">
-                <h3>48</h3>
+                <h3><?php echo $totalApplicants; ?></h3>
                 <p>Applicants</p>
-            </div>
-
-            <div class="dashboard-stat-card">
-                <h3>6</h3>
-                <p>Active Internships</p>
             </div>
 
         
@@ -96,45 +122,40 @@ include("comany-session.php");
             <div class="company-dashboard-actions-grid">
                 
 
-                <a href="post-internship.html" class="dashboard-action-card">
+                <a href="company-post-internship.php" class="dashboard-action-card">
                     <h3>Post Internship</h3>
                     <p>Add a new internship opportunity</p>
                 </a>
 
-                <a href="manage-internships.html" class="dashboard-action-card">
+                <a href="#recent-internships" class="dashboard-action-card">
                     <h3>Manage Internships</h3>
                     <p>View and edit posted internships</p>
                 </a>
 
-                <a href="view-applicants.html" class="dashboard-action-card">
+                <a href="view-applicants.php" class="dashboard-action-card">
                     <h3>View Applicants</h3>
                     <p>Check students applications</p>
                 </a>
             </div>
         </section>
 
-        <section class="company-dashboard-internships">
+        <section class="company-dashboard-internships" id="recent-internships">
             <h2>Recent Internships</h2>
 
             <div class="company-dashboard-internships-grid">
-                <div class="dashboard-internship-card">
-                    <h3>Frontend Internship</h3>
-                    <p>Web Development</p>
-                    <span>June 2026 - August 2026</span>
-                </div>
-
-                <div class="dashboard-internship-card">
-                    <h3>Backend Internship</h3>
-                    <p>Software Engineering</p>
-                    <span>July 2026 - September 2026</span>
-                </div>
-
-                <div class="dashboard-internship-card">
-                    <h3>UI/UX Internship</h3>
-                    <p>Design</p>
-                    <span>August 2026 - October 2026</span>
-                </div>
+                <?php if (empty($postedInternships)) { ?>
+                    <p>You have no posted internships.</p>
+                <?php } else { ?>
+                    <?php foreach ($postedInternships as $act) { ?>
+                        <a href="internship-details.php?id=<?php echo (int)$act['id']; ?>" class="dashboard-internship-card">
+                            <h3><?php echo htmlspecialchars($act['title']); ?></h3>
+                            <p><?php echo htmlspecialchars($act['field']); ?></p>
+                            <span><?php echo date("F Y", strtotime($act['start_date'])) . ' - ' . htmlspecialchars($act['duration']); ?></span>
+                        </a>
+                    <?php } ?>
+                <?php } ?>
             </div>
+        </section>
         </section>
 
     </main>
