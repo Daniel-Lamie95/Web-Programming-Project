@@ -192,7 +192,7 @@ if ($stmtAp) {
         </section>
 
         <section class="company-dashboard-internships">
-            <h2>My Applications</h2>
+            <h2>My Internships</h2>
 
             <div class="company-dashboard-internships-grid">
                 <?php if (empty($activeInternships)) { ?>
