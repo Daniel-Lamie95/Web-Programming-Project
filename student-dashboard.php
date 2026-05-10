@@ -73,7 +73,7 @@ if ($stmt4) {
 }
 
 $appliedCount = 0;
-$sql_applied = 'SELECT COUNT(*) AS apcnt FROM student_internships WHERE student_id = ?';
+$sql_applied = 'SELECT COUNT(*) AS apcnt FROM student_internships WHERE student_id = ? AND status IN ("pending", "rejected")';
 $stmtAp = mysqli_prepare($con, $sql_applied);
 if ($stmtAp) {
     mysqli_stmt_bind_param($stmtAp, 'i', $studentId);
@@ -85,36 +85,6 @@ if ($stmtAp) {
     }
     mysqli_stmt_close($stmtAp);
 }
-/*
-$sql_count = 'SELECT COUNT(*) AS apcnt FROM application WHERE student_id = ?';
-$stmt2 = mysqli_prepare($con, $sql_count);
-if ($stmt2) {
-    mysqli_stmt_bind_param($stmt2, 'i', $studentId);
-    mysqli_stmt_execute($stmt2);
-    $res2 = mysqli_stmt_get_result($stmt2);
-    if ($res2) {
-        $row2 = mysqli_fetch_assoc($res2);
-        $appliedCount = isset($row2['cnt']) ? (int)$row2['cnt'] : 0;
-    }
-    mysqli_stmt_close($stmt2);
-}
-
-$appliedInternships = [];
-$sql_apps = 'SELECT i.id, i.title, i.field, i.start_date, i.duration FROM application a JOIN internships i ON a.internship_id = i.id WHERE a.student_id = ? ORDER BY a.applied_date DESC';
-$stmt3 = mysqli_prepare($con, $sql_apps);
-if ($stmt3) {
-    mysqli_stmt_bind_param($stmt3, 'i', $studentId);
-    mysqli_stmt_execute($stmt3);
-    $res3 = mysqli_stmt_get_result($stmt3);
-    if ($res3) {
-        while ($r = mysqli_fetch_assoc($res3)) {
-            $appliedInternships[] = $r;
-        }
-    }
-    mysqli_stmt_close($stmt3);
-}
-*/
-
 
 ?>
 <!DOCTYPE html>
