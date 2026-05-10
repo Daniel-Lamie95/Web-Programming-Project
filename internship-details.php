@@ -2,7 +2,7 @@
 session_start();
 include('Config.php');
 
-/* 🔒 Allow both students and companies */
+
 $isStudent = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'student';
 $isCompany = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'company';
 
@@ -18,7 +18,7 @@ if ($id <= 0) {
     exit();
 }
 
-/* 📥 Get internship */
+
 $query = "SELECT * FROM internships WHERE id = $id";
 $result = mysqli_query($con, $query);
 $data = mysqli_fetch_assoc($result);
@@ -30,13 +30,13 @@ if (!$data) {
 
 $error_message = null;
 
-/* 🔐 Check if company owns this internship */
+
 $isOwner = false;
 if ($isCompany && isset($data['company_id'])) {
     $isOwner = ($data['company_id'] == $_SESSION['user_id']);
 }
 
-/* 🗑️ Handle delete request */
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_internship'])) {
     if ($isCompany && $isOwner) {
         $delete_query = "DELETE FROM internships WHERE id = ? AND company_id = ?";

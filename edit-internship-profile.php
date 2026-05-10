@@ -2,7 +2,7 @@
 session_start();
 include('Config.php');
 
-/* 🔒 Check company login */
+
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'company') {
     header('Location: login.html');
     exit();
@@ -10,7 +10,6 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'company') {
 
 $company_id = $_SESSION['user_id'];
 
-/* 📌 Get internship ID */
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
 if ($id <= 0) {
@@ -18,7 +17,7 @@ if ($id <= 0) {
     exit();
 }
 
-/* 📥 GET internship (ONLY this company’s internship) */
+
 $sql = "SELECT * FROM internships WHERE id = ? AND company_id = ? LIMIT 1";
 $stmt = mysqli_prepare($con, $sql);
 
@@ -33,7 +32,7 @@ if (!$data) {
     exit();
 }
 
-/* 💾 UPDATE */
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $title = isset($_POST['title']) ? $_POST['title'] : $data['title'];
@@ -42,13 +41,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $startDate = isset($_POST['startDate']) ? $_POST['startDate'] : $data['start_date'];
     $location = isset($_POST['location']) ? $_POST['location'] : $data['location'];
     $field = isset($_POST['field']) ? $_POST['field'] : $data['field'];
-    $logo = $data['logo']; // Keep existing logo by default
+    $logo = $data['logo']; 
 
-    // Handle file upload
+   
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
         $upload_dir = 'uploads/internships/';
         
-        // Create directory if it doesn't exist
+        
         if (!is_dir($upload_dir)) {
             mkdir($upload_dir, 0755, true);
         }
@@ -62,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $upload_path = $upload_dir . $new_file_name;
 
             if (move_uploaded_file($_FILES['photo']['tmp_name'], $upload_path)) {
-                // Delete old logo if it exists and is not the default
+                
                 if ($data['logo'] && $data['logo'] !== 'default.png' && file_exists('uploads/internships/' . $data['logo'])) {
                     unlink('uploads/internships/' . $data['logo']);
                 }
@@ -87,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     mysqli_stmt_close($stmt);
     
-    // Redirect to internship details page
+   
     header("Location: internship-details.php?id=" . $id);
     exit();
 }
@@ -122,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <section class="company-profile-card">
 
-    <!-- 🔵 LEFT SIDE -->
+    
     <div class="company-profile-left">
         <div class="company-profile-image">
             <img src="uploads/internships/<?php echo htmlspecialchars($data['logo']); ?>" alt="Logo" onerror="this.src='images/default-internship.png'">
@@ -131,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <span><?php echo htmlspecialchars($data['field']); ?></span>
     </div>
 
-    <!-- 🔵 RIGHT SIDE -->
+   
     <div class="company-profile-right">
         <h2>Edit Internship</h2>
 

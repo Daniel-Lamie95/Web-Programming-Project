@@ -8,9 +8,9 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'company') {
     exit();
 }
 
-/* 📌 Get company id from session */
+
 $company_id = $_SESSION['user_id'];
-/* 📥 Get company information */
+
 $company_query = "SELECT * FROM Company WHERE ID = ?";
 $company_stmt = mysqli_prepare($con, $company_query);
 mysqli_stmt_bind_param($company_stmt, 'i', $company_id);
@@ -23,7 +23,7 @@ if (!$company) {
     exit();
 }
 
-/* 📤 Handle form submission */
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $title = $_POST['title'];
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $location = $_POST['location'];
     $field = $_POST['field'];
 
-    /* simple default logo */
+    
     $logo = "default.png";
 
     $query = "INSERT INTO internships 
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     mysqli_stmt_execute($stmt);
 
-    /* redirect after posting */
+    
     header("Location: Available-Internships.php");
     exit();
 }
