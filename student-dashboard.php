@@ -51,6 +51,7 @@ if ($stmt2) {
     mysqli_stmt_execute($stmt2);
     $res2 = mysqli_stmt_get_result($stmt2);
     if ($res2) {
+        //['cnt' -> 3]
         $row2 = mysqli_fetch_assoc($res2);
         $activeCount = isset($row2['cnt']) ? (int)$row2['cnt'] : 0;
     }
